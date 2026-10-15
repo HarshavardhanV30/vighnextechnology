@@ -1,539 +1,884 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import logo from "../assests/vighnexlogo.png";
 
-const Icon = ({ type, size = 24 }) => {
-  const paths = {
-    code: (
-      <>
-        <path d="M9 18 3 12l6-6" />
-        <path d="m15 6 6 6-6 6" />
-        <path d="m14 4-4 16" />
-      </>
-    ),
-    design: (
-      <>
-        <rect x="3" y="3" width="18" height="18" rx="3" />
-        <path d="M8 8h8M8 12h5M8 16h8" />
-      </>
-    ),
-    marketing: (
-      <>
-        <path d="M3 11v2M6 9v6M9 7v10M12 5v14M15 8v8M18 10v4M21 12h.01" />
-      </>
-    ),
-    mobile: (
-      <>
-        <rect x="6" y="2" width="12" height="20" rx="3" />
-        <path d="M10 18h4" />
-      </>
-    ),
-    cloud: (
-      <path d="M17.5 19H9a6 6 0 1 1 1.3-11.86A7 7 0 0 1 23 12a4 4 0 0 1-5.5 7Z" />
-    ),
-    shield: (
-      <>
-        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
-        <path d="m9 12 2 2 4-5" />
-      </>
-    ),
-    rocket: (
-      <>
-        <path d="M4.5 16.5c-1.5 1.5-2 4-2 4s2.5-.5 4-2l2-2-2-2-2 2Z" />
-        <path d="m14 5 5 5" />
-        <path d="M13 4c3-2 7-2 8-1-1 1 0 5-1 7l-7 7-5-5 7-8Z" />
-        <circle cx="16" cy="8" r="1" />
-      </>
-    ),
-    target: (
-      <>
-        <circle cx="12" cy="12" r="9" />
-        <circle cx="12" cy="12" r="5" />
-        <circle cx="12" cy="12" r="1" />
-      </>
-    ),
-    users: (
-      <>
-        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
-        <circle cx="9" cy="7" r="4" />
-        <path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" />
-      </>
-    ),
-    arrow: (
-      <>
-        <path d="M5 12h14" />
-        <path d="m13 6 6 6-6 6" />
-      </>
-    ),
-    star: (
-      <path d="m12 3 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.6l6.2-.9L12 3Z" />
-    ),
-    phone: (
-      <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.8 19.8 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.12 4.2 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.78.62 2.63a2 2 0 0 1-.45 2.11L8 9.73a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.85.29 1.73.5 2.63.62A2 2 0 0 1 22 16.92Z" />
-    ),
-    mail: (
-      <>
-        <rect x="3" y="5" width="18" height="14" rx="2" />
-        <path d="m3 7 9 6 9-6" />
-      </>
-    ),
-    location: (
-      <>
-        <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-        <circle cx="12" cy="10" r="2.5" />
-      </>
-    ),
-    menu: <path d="M4 6h16M4 12h16M4 18h16" />,
-    close: (
-      <>
-        <path d="M6 6l12 12" />
-        <path d="M18 6 6 18" />
-      </>
-    ),
-    spark: (
-      <>
-        <path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3Z" />
-        <path d="m19 16 .7 2.3L22 19l-2.3.7L19 22l-.7-2.3L16 19l2.3-.7L19 16Z" />
-      </>
-    ),
-    database: (
-      <>
-        <ellipse cx="12" cy="5" rx="8" ry="3" />
-        <path d="M4 5v7c0 1.7 3.6 3 8 3s8-1.3 8-3V5" />
-        <path d="M4 12v7c0 1.7 3.6 3 8 3s8-1.3 8-3v-7" />
-      </>
-    ),
-    layers: (
-      <>
-        <path d="m12 2 9 5-9 5-9-5 9-5Z" />
-        <path d="m3 12 9 5 9-5" />
-        <path d="m3 17 9 5 9-5" />
-      </>
-    ),
-  };
+const Header = () => {
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [servicesOpen, setServicesOpen] = useState(false);
 
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      {paths[type] || paths.spark}
-    </svg>
-  );
-};
+  const location = useLocation();
 
-export { Icon };
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 25);
+    };
 
-export default function Header({
-  menuOpen,
-  setMenuOpen,
-  scrolled,
-  scrollTo,
-}) {
-  const [activeItem, setActiveItem] = useState("home");
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-  const container = {
-    width: "min(1180px,92%)",
-    margin: "0 auto",
-  };
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setServicesOpen(false);
+  }, [location.pathname]);
 
   const navItems = [
-    ["home", "Home"],
-    ["about", "About"],
-    ["services", "Services"],
-    ["why", "Why Us"],
-    ["technology", "Technology"],
-    ["projects", "Projects"],
-    ["testimonials", "Testimonials"],
-    ["faq", "FAQ"],
-    ["contact", "Contact"],
+    { name: "Home", path: "/" },
+    { name: "About", path: "/about" },
+    { name: "Contact", path: "/contact" },
   ];
 
-  const handleNavigation = (id) => {
-    setActiveItem(id);
+  const serviceItems = [
+    { name: "Web Development", path: "/services" },
+    { name: "Mobile App Development", path: "/services" },
+    { name: "Digital Marketing", path: "/services" },
+    { name: "Logo & Branding", path: "/services" },
+    { name: "UI/UX Design", path: "/services" },
+    { name: "Cloud Deployment", path: "/services" },
+  ];
 
-    if (typeof scrollTo === "function") {
-      scrollTo(id);
-    }
+  const isActive = (path) =>
+    path === "/"
+      ? location.pathname === "/"
+      : location.pathname === path ||
+        location.pathname.startsWith(`${path}/`);
 
-    if (typeof setMenuOpen === "function") {
-      setMenuOpen(false);
-    }
+  const closeMenus = () => {
+    setMobileMenuOpen(false);
+    setServicesOpen(false);
   };
 
   return (
     <>
-      <nav
-        className="vighnex-header"
-        style={{
-          position: "fixed",
-          top: 0,
-          left: 0,
-          right: 0,
-          height: 82,
-          zIndex: 1000,
-          display: "flex",
-          alignItems: "center",
-          background: scrolled
-            ? "rgba(250,247,240,.97)"
-            : "rgba(250,247,240,.94)",
-          backdropFilter: "blur(16px)",
-          WebkitBackdropFilter: "blur(16px)",
-          boxShadow: scrolled
-            ? "0 10px 35px rgba(0,0,0,.12)"
-            : "0 2px 12px rgba(0,0,0,.04)",
-          transition: "all .3s ease",
-        }}
-      >
-        <div
-          style={{
-            ...container,
-            height: "100%",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            gap: 22,
-          }}
-        >
-          {/* LOGO */}
-          <button
-            type="button"
-            onClick={() => handleNavigation("home")}
-            aria-label="Go to home"
-            style={{
-              border: 0,
-              padding: 0,
-              margin: 0,
-              background: "transparent",
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "flex-start",
-              minWidth: 235,
-              height: 76,
-              flexShrink: 0,
-            }}
-          >
-            <div
-              style={{
-                width: 225,
-                height: 72,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "flex-start",
-                overflow: "hidden",
-                background: "transparent",
-              }}
-            >
-              <img
-                src={logo}
-                alt="Vighnex Technologies"
-                style={{
-                  width: 525,
-                  height: 112,
-                  maxWidth: "none",
-                  objectFit: "contain",
-                  objectPosition: "left center",
-                  display: "block",
-                  background: "transparent",
-                  mixBlendMode: "multiply",
-                  transform: "scale(1.05)",
-                  transformOrigin: "left center",
-                }}
-              />
-            </div>
-          </button>
-
-          {/* DESKTOP NAVIGATION */}
-          <div
-            className={`vighnex-nav-links ${
-              menuOpen ? "vighnex-nav-open" : ""
-            }`}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 17,
-              flexWrap: "nowrap",
-              flex: 1,
-            }}
-          >
-            {navItems.map(([id, text]) => {
-              const active = activeItem === id;
-
-              return (
-                <button
-                  key={id}
-                  type="button"
-                  onClick={() => handleNavigation(id)}
-                  style={{
-                    position: "relative",
-                    border: 0,
-                    background: "transparent",
-                    color: active ? "#092338" : "#24384b",
-                    fontWeight: active ? 850 : 700,
-                    fontSize: 12.5,
-                    cursor: "pointer",
-                    padding: "9px 2px",
-                    whiteSpace: "nowrap",
-                    transition: "all .25s ease",
-                  }}
-                >
-                  {text}
-
-                  <span
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                      bottom: 1,
-                      height: 2,
-                      borderRadius: 10,
-                      background: "#092338",
-                      transform: active ? "scaleX(1)" : "scaleX(0)",
-                      transformOrigin: "center",
-                      transition: "transform .25s ease",
-                    }}
-                  />
-                </button>
-              );
-            })}
-          </div>
-
-          {/* CONNECT BUTTON */}
-          <button
-            type="button"
-            onClick={() => handleNavigation("contact")}
-            style={{
-              border: 0,
-              borderRadius: 50,
-              padding: "13px 21px",
-              fontSize: 13,
-              fontWeight: 800,
-              cursor: "pointer",
-              display: "inline-flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              background: "#092338",
-              color: "#fff",
-              whiteSpace: "nowrap",
-              boxShadow: "0 7px 18px rgba(9,35,56,.18)",
-              transition: "all .25s ease",
-              flexShrink: 0,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = "translateY(-2px)";
-              e.currentTarget.style.boxShadow =
-                "0 10px 24px rgba(9,35,56,.25)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = "translateY(0)";
-              e.currentTarget.style.boxShadow =
-                "0 7px 18px rgba(9,35,56,.18)";
-            }}
-          >
-            Let's Connect
-            <Icon type="arrow" size={16} />
-          </button>
-
-          {/* MOBILE MENU BUTTON */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen(!menuOpen)}
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            aria-expanded={menuOpen}
-            className="vighnex-mobile-menu"
-            style={{
-              border: 0,
-              background: "transparent",
-              color: "#092338",
-              cursor: "pointer",
-              width: 44,
-              height: 44,
-              display: "none",
-              alignItems: "center",
-              justifyContent: "center",
-              borderRadius: 12,
-            }}
-          >
-            <Icon type={menuOpen ? "close" : "menu"} size={29} />
-          </button>
-        </div>
-      </nav>
-
       <style>{`
-        .vighnex-header button:hover {
-          opacity: 0.92;
+        .vh-header,
+        .vh-header * {
+          box-sizing: border-box;
         }
 
-        @media (max-width: 1200px) {
-          .vighnex-header {
-            height: 78px !important;
+        .vh-header {
+          --vh-bg: #03162c;
+          --vh-cyan: #00c9f2;
+          --vh-gold: #f4bd42;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          z-index: 1000;
+          color: #ffffff;
+          font-family: Inter, "Segoe UI", Arial, sans-serif;
+          background: rgba(2, 19, 39, 0.97);
+          border-bottom: 1px solid rgba(0, 171, 255, 0.32);
+          box-shadow: 0 5px 24px rgba(0, 0, 0, 0.12);
+          transition: background .25s ease, box-shadow .25s ease;
+        }
+
+        .vh-header.vh-scrolled {
+          background: rgba(2, 15, 32, 0.98);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.28);
+        }
+
+        .vh-topbar {
+          min-height: 43px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 16px;
+          padding: 7px 3%;
+          border-bottom: 1px solid rgba(0, 185, 255, 0.20);
+          background: linear-gradient(
+            90deg,
+            rgba(5, 43, 78, .9),
+            rgba(2, 20, 42, .95)
+          );
+        }
+
+        .vh-top-contact,
+        .vh-top-right,
+        .vh-socials,
+        .vh-top-item {
+          display: flex;
+          align-items: center;
+        }
+
+        .vh-top-contact {
+          gap: 15px;
+          min-width: 0;
+        }
+
+        .vh-top-item {
+          gap: 8px;
+          color: #e5efff;
+          font-size: 12px;
+          white-space: nowrap;
+          text-decoration: none;
+        }
+
+        .vh-top-icon {
+          color: var(--vh-cyan);
+          font-size: 17px;
+          line-height: 1;
+        }
+
+        .vh-top-divider {
+          width: 1px;
+          height: 23px;
+          flex-shrink: 0;
+          background: rgba(0, 195, 255, 0.38);
+        }
+
+        .vh-top-right {
+          gap: 15px;
+        }
+
+        .vh-trust-items {
+          display: flex;
+          align-items: center;
+          gap: 15px;
+        }
+
+        .vh-trust-item {
+          display: flex;
+          align-items: center;
+          gap: 6px;
+          white-space: nowrap;
+          color: #e6efff;
+          font-size: 11px;
+        }
+
+        .vh-trust-check {
+          display: grid;
+          place-items: center;
+          width: 18px;
+          height: 18px;
+          border-radius: 50%;
+          color: #00223a;
+          background: var(--vh-cyan);
+          font-size: 11px;
+          font-weight: 900;
+        }
+
+        .vh-socials {
+          gap: 7px;
+        }
+
+        .vh-social {
+          display: grid;
+          place-items: center;
+          width: 29px;
+          height: 29px;
+          border-radius: 50%;
+          color: #ffffff;
+          background: #0876c9;
+          text-decoration: none;
+          font-size: 13px;
+          font-weight: 800;
+          transition: transform .2s ease, filter .2s ease;
+        }
+
+        .vh-social:hover {
+          transform: translateY(-2px);
+          filter: brightness(1.15);
+        }
+
+        .vh-social.vh-instagram {
+          background: linear-gradient(135deg, #7438ff, #fa286d, #ffb32c);
+        }
+
+        .vh-social.vh-youtube {
+          background: #f21d30;
+        }
+
+        .vh-social.vh-facebook {
+          background: #1877f2;
+        }
+
+        .vh-mainbar {
+          min-height: 100px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 20px;
+          padding: 13px 2.5%;
+          background:
+            radial-gradient(
+              ellipse at 0% 100%,
+              rgba(0, 104, 200, .15),
+              transparent 40%
+            ),
+            linear-gradient(100deg, #041a32, #020f21 65%, #03172e);
+        }
+
+        .vh-brand {
+          display: flex;
+          align-items: center;
+          flex: 0 0 auto;
+          min-width: 0;
+          text-decoration: none;
+        }
+
+        .vh-logo {
+          display: block;
+          width: 225px;
+          max-width: 100%;
+          height: 66px;
+          object-fit: contain;
+          object-position: left center;
+          flex-shrink: 1;
+        }
+
+        .vh-nav {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: clamp(12px, 1.8vw, 30px);
+          min-width: 0;
+        }
+
+        .vh-nav-link {
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          gap: 6px;
+          padding: 12px 0;
+          color: #edf3ff;
+          font-size: 14px;
+          font-weight: 550;
+          white-space: nowrap;
+          text-decoration: none;
+          transition: color .2s ease;
+        }
+
+        .vh-nav-link::after {
+          content: "";
+          position: absolute;
+          bottom: 3px;
+          left: 0;
+          width: 0;
+          height: 2px;
+          border-radius: 5px;
+          background: linear-gradient(90deg, #00d7f5, #6551ff);
+          transition: width .25s ease;
+        }
+
+        .vh-nav-link:hover,
+        .vh-nav-link.vh-active {
+          color: #4adfff;
+        }
+
+        .vh-nav-link:hover::after,
+        .vh-nav-link.vh-active::after {
+          width: 100%;
+        }
+
+        .vh-home-link.vh-active {
+          padding: 12px 18px;
+          border-radius: 40px;
+          color: #ffffff;
+          background: linear-gradient(110deg, #0798f5, #0759d8);
+          box-shadow: 0 4px 18px rgba(0, 126, 255, .2);
+        }
+
+        .vh-home-link.vh-active::after {
+          display: none;
+        }
+
+        .vh-services-wrap {
+          position: relative;
+        }
+
+        .vh-dropdown-arrow {
+          display: inline-block;
+          width: 0;
+          height: 0;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 5px solid currentColor;
+          transition: transform .2s ease;
+        }
+
+        .vh-services-wrap:hover .vh-dropdown-arrow,
+        .vh-services-wrap:focus-within .vh-dropdown-arrow {
+          transform: rotate(180deg);
+        }
+
+        .vh-dropdown {
+          position: absolute;
+          top: calc(100% + 8px);
+          left: -15px;
+          width: 235px;
+          padding: 9px;
+          border: 1px solid rgba(0, 180, 255, .28);
+          border-radius: 13px;
+          background: #061a31;
+          box-shadow: 0 14px 35px rgba(0, 0, 0, .35);
+          opacity: 0;
+          visibility: hidden;
+          transform: translateY(7px);
+          transition: opacity .2s, transform .2s, visibility .2s;
+        }
+
+        .vh-services-wrap:hover .vh-dropdown,
+        .vh-services-wrap:focus-within .vh-dropdown,
+        .vh-services-wrap.vh-dropdown-open .vh-dropdown {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .vh-dropdown-link {
+          display: block;
+          padding: 11px 12px;
+          border-radius: 8px;
+          color: #dce9fc;
+          font-size: 13px;
+          text-decoration: none;
+          transition: color .2s, background .2s;
+        }
+
+        .vh-dropdown-link:hover {
+          color: #45e0ff;
+          background: rgba(0, 161, 255, .12);
+        }
+
+        .vh-quote-btn {
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          gap: 9px;
+          flex-shrink: 0;
+          min-height: 48px;
+          padding: 0 22px;
+          border: 1px solid rgba(255, 255, 255, .12);
+          border-radius: 40px;
+          color: #ffffff;
+          background: linear-gradient(105deg, #05b9ef, #087bfa 48%, #8129f6);
+          box-shadow: 0 5px 20px rgba(20, 106, 255, .28);
+          font-size: 13px;
+          font-weight: 750;
+          white-space: nowrap;
+          text-decoration: none;
+          transition: transform .2s, box-shadow .2s;
+        }
+
+        .vh-quote-btn:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 8px 25px rgba(20, 106, 255, .4);
+        }
+
+        .vh-quote-icon {
+          font-size: 17px;
+        }
+
+        .vh-mobile-toggle {
+          display: none;
+          align-items: center;
+          justify-content: center;
+          width: 43px;
+          height: 43px;
+          flex-shrink: 0;
+          border: 1px solid rgba(0, 194, 255, .3);
+          border-radius: 10px;
+          color: #ffffff;
+          background: rgba(0, 140, 255, .12);
+          font-size: 24px;
+          cursor: pointer;
+        }
+
+        .vh-mobile-panel {
+          display: none;
+        }
+
+        @media (min-width: 1600px) {
+          .vh-mainbar {
+            padding-right: 3.2%;
+            padding-left: 3.2%;
           }
 
-          .vighnex-header > div {
-            gap: 12px !important;
+          .vh-logo {
+            width: 245px;
+            height: 72px;
           }
 
-          .vighnex-header .vighnex-nav-links {
-            gap: 10px !important;
-          }
-
-          .vighnex-header .vighnex-nav-links button {
-            font-size: 11px !important;
-          }
-
-          .vighnex-header > div > button:first-child {
-            min-width: 205px !important;
-          }
-
-          .vighnex-header > div > button:first-child > div {
-            width: 200px !important;
-          }
-
-          .vighnex-header > div > button:first-child img {
-            width: 200px !important;
+          .vh-nav-link {
+            font-size: 15px;
           }
         }
 
-        @media (max-width: 1050px) {
-          .vighnex-header .vighnex-nav-links {
-            gap: 7px !important;
+        @media (max-width: 1250px) {
+          .vh-topbar {
+            padding-right: 2%;
+            padding-left: 2%;
           }
 
-          .vighnex-header .vighnex-nav-links button {
-            font-size: 10.5px !important;
+          .vh-top-contact {
+            gap: 10px;
           }
 
-          .vighnex-header > div > button:first-child {
-            min-width: 180px !important;
+          .vh-top-item {
+            font-size: 11px;
           }
 
-          .vighnex-header > div > button:first-child > div {
-            width: 175px !important;
+          .vh-trust-items {
+            gap: 9px;
           }
 
-          .vighnex-header > div > button:first-child img {
-            width: 175px !important;
+          .vh-trust-item {
+            font-size: 10px;
           }
 
-          .vighnex-header > div > button:nth-last-child(2) {
-            padding: 11px 14px !important;
-            font-size: 11px !important;
-          }
-        }
-
-        @media (max-width: 900px) {
-          .vighnex-header {
-            height: 76px !important;
+          .vh-mainbar {
+            gap: 14px;
+            padding-right: 2%;
+            padding-left: 2%;
           }
 
-          .vighnex-header .vighnex-nav-links {
-            position: absolute !important;
-            top: 76px !important;
-            left: 0 !important;
-            right: 0 !important;
-            width: 100% !important;
-            display: none !important;
-            flex-direction: column !important;
-            align-items: stretch !important;
-            justify-content: flex-start !important;
-            gap: 0 !important;
-            padding: 12px 5% 18px !important;
-            background: rgba(250,247,240,.98) !important;
-            backdrop-filter: blur(18px) !important;
-            -webkit-backdrop-filter: blur(18px) !important;
-            box-shadow: 0 15px 35px rgba(0,0,0,.12) !important;
-            border-top: 1px solid rgba(9,35,56,.08) !important;
+          .vh-logo {
+            width: 185px;
+            height: 59px;
           }
 
-          .vighnex-header .vighnex-nav-links.vighnex-nav-open {
-            display: flex !important;
+          .vh-nav {
+            gap: 13px;
           }
 
-          .vighnex-header .vighnex-nav-links button {
-            width: 100% !important;
-            text-align: left !important;
-            font-size: 14px !important;
-            padding: 13px 8px !important;
-            border-bottom: 1px solid rgba(9,35,56,.06) !important;
+          .vh-nav-link {
+            font-size: 12px;
           }
 
-          .vighnex-header .vighnex-nav-links button span {
-            display: none !important;
-          }
-
-          .vighnex-header > div > button:nth-last-child(2) {
-            display: none !important;
-          }
-
-          .vighnex-header .vighnex-mobile-menu {
-            display: flex !important;
-          }
-
-          .vighnex-header > div > button:first-child {
-            min-width: 210px !important;
-            height: 70px !important;
-          }
-
-          .vighnex-header > div > button:first-child > div {
-            width: 205px !important;
-            height: 68px !important;
-          }
-
-          .vighnex-header > div > button:first-child img {
-            width: 205px !important;
-            height: 68px !important;
+          .vh-quote-btn {
+            min-height: 44px;
+            padding: 0 15px;
+            font-size: 12px;
           }
         }
 
-        @media (max-width: 520px) {
-          .vighnex-header > div {
-            width: 94% !important;
+        @media (max-width: 960px) {
+          .vh-topbar {
+            min-height: 38px;
           }
 
-          .vighnex-header > div > button:first-child {
-            min-width: 180px !important;
-            height: 68px !important;
+          .vh-trust-items {
+            display: none;
           }
 
-          .vighnex-header > div > button:first-child > div {
-            width: 175px !important;
-            height: 64px !important;
+          .vh-mainbar {
+            min-height: 78px;
           }
 
-          .vighnex-header > div > button:first-child img {
-            width: 175px !important;
-            height: 64px !important;
+          .vh-logo {
+            width: 195px;
+            height: 58px;
           }
 
-          .vighnex-header .vighnex-mobile-menu {
-            width: 42px !important;
-            height: 42px !important;
+          .vh-nav,
+          .vh-mainbar > .vh-quote-btn {
+            display: none;
+          }
+
+          .vh-mobile-toggle {
+            display: inline-flex;
+          }
+
+          .vh-mobile-panel {
+            display: flex;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            max-height: calc(100vh - 115px);
+            overflow-y: auto;
+            flex-direction: column;
+            gap: 4px;
+            padding: 14px 22px 24px;
+            border-top: 1px solid rgba(0, 191, 255, .2);
+            background: #03162c;
+            box-shadow: 0 18px 28px rgba(0, 0, 0, .35);
+          }
+
+          .vh-mobile-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 13px 10px;
+            border-bottom: 1px solid rgba(255, 255, 255, .08);
+            color: #e8f1ff;
+            font-size: 15px;
+            text-decoration: none;
+          }
+
+          .vh-mobile-link.vh-active {
+            color: #32d9ff;
+          }
+
+          .vh-mobile-submenu {
+            display: grid;
+            gap: 2px;
+            padding: 4px 0 8px 15px;
+          }
+
+          .vh-mobile-submenu a {
+            padding: 10px;
+            border-radius: 7px;
+            color: #bdcde3;
+            font-size: 13px;
+            text-decoration: none;
+          }
+
+          .vh-mobile-submenu a:hover {
+            color: #42ddff;
+            background: rgba(0, 160, 255, .1);
+          }
+
+          .vh-mobile-quote {
+            margin-top: 13px;
+          }
+        }
+
+        @media (max-width: 600px) {
+          .vh-topbar {
+            padding: 8px 12px;
+          }
+
+          .vh-top-contact {
+            gap: 9px;
+            width: 100%;
+            justify-content: space-between;
+          }
+
+          .vh-top-item {
+            gap: 5px;
+            font-size: 10px;
+          }
+
+          .vh-top-item.vh-location {
+            display: none;
+          }
+
+          .vh-top-divider {
+            height: 18px;
+          }
+
+          .vh-top-right {
+            gap: 0;
+          }
+
+          .vh-socials {
+            gap: 5px;
+          }
+
+          .vh-social {
+            width: 24px;
+            height: 24px;
+            font-size: 11px;
+          }
+
+          .vh-mainbar {
+            min-height: 72px;
+            padding: 9px 14px;
+          }
+
+          .vh-logo {
+            width: 175px;
+            height: 51px;
+          }
+
+          .vh-mobile-toggle {
+            width: 39px;
+            height: 39px;
           }
         }
 
         @media (max-width: 360px) {
-          .vighnex-header > div > button:first-child {
-            min-width: 155px !important;
+          .vh-top-item.vh-email {
+            display: none;
           }
 
-          .vighnex-header > div > button:first-child > div {
-            width: 150px !important;
-          }
-
-          .vighnex-header > div > button:first-child img {
-            width: 150px !important;
+          .vh-logo {
+            width: 150px;
           }
         }
       `}</style>
+
+      <header className={`vh-header ${isScrolled ? "vh-scrolled" : ""}`}>
+        {/* TOP CONTACT BAR */}
+        <div className="vh-topbar">
+          <div className="vh-top-contact">
+            <a
+              className="vh-top-item vh-location"
+              href="https://maps.google.com/?q=Addis Ababa, Ethopia"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <span className="vh-top-icon">⌖</span>
+              <span>Addis Ababa, Ethopia</span>
+            </a>
+
+            <span className="vh-top-divider vh-location" />
+
+            <a className="vh-top-item" href="tel:+919390642779">
+              <span className="vh-top-icon">☎</span>
+              <span>+91 9390642779</span>
+            </a>
+
+            <span className="vh-top-divider vh-email" />
+
+            <a
+              className="vh-top-item vh-email"
+              href="mailto:info@vighnextech.com"
+            >
+              <span className="vh-top-icon">✉</span>
+              <span>info@vighnextech.com</span>
+            </a>
+          </div>
+
+          <div className="vh-top-right">
+            <div className="vh-trust-items">
+              <div className="vh-trust-item">
+                <span className="vh-trust-check">✓</span>
+                Innovative Solutions
+              </div>
+
+              <div className="vh-trust-item">
+                <span className="vh-trust-check">✓</span>
+                Reliable Support
+              </div>
+
+              <div className="vh-trust-item">
+                <span className="vh-trust-check">✓</span>
+                Client Success
+              </div>
+            </div>
+
+            <span className="vh-top-divider" />
+
+            <div className="vh-socials">
+              <a
+                className="vh-social"
+                href="https://www.linkedin.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="LinkedIn"
+              >
+                in
+              </a>
+
+              <a
+                className="vh-social vh-instagram"
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Instagram"
+              >
+                ◎
+              </a>
+
+              <a
+                className="vh-social vh-youtube"
+                href="https://www.youtube.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="YouTube"
+              >
+                ▶
+              </a>
+
+              <a
+                className="vh-social vh-facebook"
+                href="https://www.facebook.com/"
+                target="_blank"
+                rel="noreferrer"
+                aria-label="Facebook"
+              >
+                f
+              </a>
+            </div>
+          </div>
+        </div>
+
+        {/* MAIN NAVIGATION */}
+        <div className="vh-mainbar">
+          <Link
+            to="/"
+            className="vh-brand"
+            onClick={closeMenus}
+            aria-label="Vighnex Technologies - Home"
+          >
+            <img
+              src={logo}
+              alt="Vighnex Technologies"
+              className="vh-logo"
+            />
+          </Link>
+
+          <nav className="vh-nav" aria-label="Main navigation">
+            {navItems.slice(0, 2).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`vh-nav-link ${
+                  isActive(item.path)
+                    ? `vh-active ${
+                        item.path === "/" ? "vh-home-link" : ""
+                      }`
+                    : ""
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+
+            <div
+              className={`vh-services-wrap ${
+                servicesOpen ? "vh-dropdown-open" : ""
+              }`}
+              onMouseEnter={() => setServicesOpen(true)}
+              onMouseLeave={() => setServicesOpen(false)}
+            >
+              <Link
+                to="/services"
+                className={`vh-nav-link ${
+                  isActive("/services") ? "vh-active" : ""
+                }`}
+                aria-haspopup="true"
+                aria-expanded={servicesOpen}
+                onClick={() => setServicesOpen(!servicesOpen)}
+              >
+                Services <span className="vh-dropdown-arrow" />
+              </Link>
+
+              <div className="vh-dropdown">
+                {serviceItems.map((service, index) => (
+                  <Link
+                    key={`${service.name}-${index}`}
+                    to={service.path}
+                    className="vh-dropdown-link"
+                  >
+                    {service.name}
+                  </Link>
+                ))}
+              </div>
+            </div>
+
+            {navItems.slice(2).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`vh-nav-link ${
+                  isActive(item.path) ? "vh-active" : ""
+                }`}
+              >
+                {item.name}
+              </Link>
+            ))}
+          </nav>
+
+          <Link to="/contact" className="vh-quote-btn">
+            <span className="vh-quote-icon" aria-hidden="true">➤</span>
+            Get a Quote
+          </Link>
+
+          <button
+            type="button"
+            className="vh-mobile-toggle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={mobileMenuOpen}
+          >
+            {mobileMenuOpen ? "✕" : "☰"}
+          </button>
+        </div>
+
+        {/* RESPONSIVE MOBILE MENU */}
+        {mobileMenuOpen && (
+          <nav className="vh-mobile-panel" aria-label="Mobile navigation">
+            {navItems.slice(0, 2).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`vh-mobile-link ${
+                  isActive(item.path) ? "vh-active" : ""
+                }`}
+                onClick={closeMenus}
+              >
+                {item.name}
+              </Link>
+            ))}
+
+            <button
+              type="button"
+              className={`vh-mobile-link ${
+                isActive("/services") ? "vh-active" : ""
+              }`}
+              style={{
+                width: "100%",
+                background: "transparent",
+                borderTop: 0,
+                borderRight: 0,
+                borderLeft: 0,
+                textAlign: "left",
+                cursor: "pointer",
+                fontFamily: "inherit",
+              }}
+              onClick={() => setServicesOpen(!servicesOpen)}
+              aria-expanded={servicesOpen}
+            >
+              Services
+              <span className="vh-dropdown-arrow" />
+            </button>
+
+            {servicesOpen && (
+              <div className="vh-mobile-submenu">
+                {serviceItems.map((service, index) => (
+                  <Link
+                    key={`${service.name}-${index}`}
+                    to={service.path}
+                    onClick={closeMenus}
+                  >
+                    {service.name}
+                  </Link>
+                ))}
+              </div>
+            )}
+
+            {navItems.slice(2).map((item) => (
+              <Link
+                key={item.path}
+                to={item.path}
+                className={`vh-mobile-link ${
+                  isActive(item.path) ? "vh-active" : ""
+                }`}
+                onClick={closeMenus}
+              >
+                {item.name}
+              </Link>
+            ))}
+
+            <Link
+              to="/contact"
+              className="vh-quote-btn vh-mobile-quote"
+              onClick={closeMenus}
+            >
+              <span className="vh-quote-icon" aria-hidden="true">➤</span>
+              Get a Quote
+            </Link>
+          </nav>
+        )}
+      </header>
+
+      {/* Keeps the page content below the fixed header. */}
+      <div
+        aria-hidden="true"
+        style={{
+          height: "143px",
+        }}
+      />
     </>
   );
-}
+};
+
+export default Header;

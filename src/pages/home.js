@@ -1,177 +1,128 @@
-import React, { useEffect, useState } from "react";
-import Header, { Icon } from "../Components/header";
-import Footer from "../Components/footer";
-import logo from "../assests/vighnexlogo.png";
-import poster from "../assests/image.png";
+import React, { useState } from "react";
 
-export default function Home() {
-  const [menuOpen, setMenuOpen] = useState(false);
+const Home = () => {
   const [activeFaq, setActiveFaq] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
   const [formStatus, setFormStatus] = useState("idle");
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll);
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  const colors = {
+    navy: "#06152E",
+    navyLight: "#0B2850",
+    blue: "#1264D8",
+    cyan: "#00C8F0",
+    gold: "#F7B928",
+    orange: "#FF6B21",
+    purple: "#8138D8",
+    white: "#FFFFFF",
+    background: "#F4F8FF",
+    text: "#102B4E",
+    muted: "#647891",
+    border: "#DCE7F5",
+  };
+
+  const services = [
+    {
+      title: "Web Development",
+      image:
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1000&q=85",
+      color: colors.blue,
+    },
+    {
+      title: "Mobile App Development",
+      image:
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=85",
+      color: colors.cyan,
+    },
+    {
+      title: "UI/UX Design",
+      image:
+        "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=85",
+      color: colors.purple,
+    },
+    {
+      title: "Digital Marketing",
+      image:
+        "https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=1000&q=85",
+      color: colors.orange,
+    },
+    {
+      title: "Logo & Branding",
+      image:
+        "https://images.unsplash.com/photo-1634942536790-2536f7c1d4a7?auto=format&fit=crop&w=1000&q=85",
+      color: colors.gold,
+    },
+    {
+      title: "Cloud Deployment",
+      image:
+        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=85",
+      color: colors.blue,
+    },
+  ];
+
+  const projects = [
+    "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=1200&q=85",
+    "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85",
+  ];
+
+  const technologies = [
+    "React",
+    "JavaScript",
+    "Node.js",
+    "Python",
+    "Java",
+    "React Native",
+    "PostgreSQL",
+    "MongoDB",
+    "AWS",
+    "Docker",
+    "GitHub",
+    "Figma",
+  ];
+
+  const processSteps = [
+    ["01", "Discover", "Understand your goals and business requirements."],
+    ["02", "Plan", "Create a practical roadmap for your project."],
+    ["03", "Design", "Build an intuitive and engaging experience."],
+    ["04", "Develop", "Turn your concept into a working product."],
+    ["05", "Launch", "Test, optimize and deploy your solution."],
+    ["06", "Grow", "Improve your product as your business evolves."],
+  ];
+
+  const faqs = [
+    [
+      "What services does Vighnex Technologies provide?",
+      "We provide web development, mobile app development, UI/UX design, digital marketing, logo and branding, and cloud deployment services.",
+    ],
+    [
+      "Can you build a website for my business?",
+      "Yes. We can help plan, design and develop a website based on your business goals, audience and requirements.",
+    ],
+    [
+      "Do you develop mobile applications?",
+      "Yes. We can develop mobile applications for Android and iOS according to your project requirements.",
+    ],
+    [
+      "Can I request multiple services?",
+      "Yes. You can combine web development, branding, marketing, mobile applications and deployment into one project.",
+    ],
+    [
+      "How can I get a project quotation?",
+      "Use the contact form below to share your requirements. Our team can review your project details and discuss the next steps.",
+    ],
+  ];
 
   const scrollTo = (id) => {
-    setMenuOpen(false);
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
 
-  const services = [
-    {
-      icon: "code",
-      title: "Web Development",
-      text: "High-performance websites and web platforms engineered for speed, accessibility, scalability and measurable business growth.",
-      tags: ["React", "Next.js", "Node.js"],
-      image:
-        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=900&q=85",
-    },
-    {
-      icon: "design",
-      title: "UI/UX Design",
-      text: "Human-centered digital experiences combining research, visual systems, interaction design and conversion-focused interfaces.",
-      tags: ["Figma", "Design Systems", "Prototyping"],
-      image:
-        "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=900&q=85",
-    },
-    {
-      icon: "marketing",
-      title: "Digital Marketing",
-      text: "Data-led marketing strategies that increase visibility, attract qualified audiences and turn attention into sustainable growth.",
-      tags: ["SEO", "Social Media", "Analytics"],
-      image:
-        "https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=900&q=85",
-    },
-    {
-      icon: "mobile",
-      title: "Mobile Development",
-      text: "Modern Android and iOS applications with intuitive interfaces, secure architecture and reliable performance.",
-      tags: ["Android", "iOS", "Cross Platform"],
-      image:
-        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=900&q=85",
-    },
-    {
-      icon: "cloud",
-      title: "Cloud Development",
-      text: "Secure cloud-native solutions designed for resilience, automation, cost efficiency and effortless scaling.",
-      tags: ["AWS", "Azure", "DevOps"],
-      image:
-        "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=900&q=85",
-    },
-  ];
+  const handleSubmit = async (event) => {
+    event.preventDefault();
 
-  const technologies = [
-    ["React", "Frontend"],
-    ["Next.js", "Frontend"],
-    ["Node.js", "Backend"],
-    ["Python", "Backend"],
-    ["Java", "Backend"],
-    ["Flutter", "Mobile"],
-    ["MongoDB", "Database"],
-    ["PostgreSQL", "Database"],
-    ["AWS", "Cloud"],
-    ["Docker", "DevOps"],
-    ["Figma", "Design"],
-    ["GitHub", "Development"],
-  ];
-
-  const process = [
-    ["01", "Discover", "We understand your goals, audience, challenges and opportunities before writing a single line of code.", "target"],
-    ["02", "Strategize", "We convert business requirements into a clear digital roadmap with measurable priorities.", "layers"],
-    ["03", "Design", "We create intuitive interfaces and experiences that feel natural, premium and purposeful.", "design"],
-    ["04", "Build", "Our engineers transform the approved experience into secure, scalable and high-quality products.", "code"],
-    ["05", "Launch", "We test, optimize, deploy and monitor your solution for a confident launch.", "rocket"],
-    ["06", "Grow", "We continue improving your product using data, feedback, experiments and technology.", "spark"],
-  ];
-
-  const projects = [
-    {
-      title: "FinEdge",
-      category: "FinTech Platform",
-      text: "A modern financial management experience designed around clarity, trust and frictionless digital journeys.",
-      image:
-        "https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=1200&q=85",
-    },
-    {
-      title: "Medivista",
-      category: "Healthcare Experience",
-      text: "A patient-focused digital ecosystem that makes appointments, information and communication easier.",
-      image:
-        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?auto=format&fit=crop&w=1200&q=85",
-    },
-    {
-      title: "UrbanCart",
-      category: "E-Commerce",
-      text: "A conversion-focused shopping experience built for speed, discovery and effortless checkout.",
-      image:
-        "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?auto=format&fit=crop&w=1200&q=85",
-    },
-  ];
-
-  const testimonials = [
-    {
-      name: "Ananya Rao",
-      role: "Founder, Nova Ventures",
-      text: "The Vighnex team understood our vision quickly and turned it into a digital experience that feels far more premium than we imagined.",
-      image:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=300&q=80",
-    },
-    {
-      name: "Rahul Mehta",
-      role: "Director, Crest Solutions",
-      text: "What impressed us most was the combination of design thinking and technical discipline. Communication was clear from start to finish.",
-      image:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=300&q=80",
-    },
-    {
-      name: "Priya Sharma",
-      role: "Entrepreneur",
-      text: "They did not simply build a website. They helped us think through our entire digital presence and created something our customers love.",
-      image:
-        "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=300&q=80",
-    },
-  ];
-
-  const faqs = [
-    [
-      "What services does Vighnex Technologies provide?",
-      "We provide web development, UI/UX design, digital marketing, mobile application development and cloud development. We can also combine multiple services into one complete digital transformation engagement.",
-    ],
-    [
-      "Can you build a website from an idea only?",
-      "Yes. We can start from a concept, business requirement, rough sketch or existing website. We help define the structure, user journey, visual direction, technology and launch plan.",
-    ],
-    [
-      "Do you develop mobile applications for both Android and iOS?",
-      "Yes. Depending on project requirements, we can build native or cross-platform applications with a strong focus on performance, security and user experience.",
-    ],
-    [
-      "Do you provide maintenance after launch?",
-      "Yes. We can provide ongoing technical support, security updates, performance improvements, content changes, analytics and feature development.",
-    ],
-    [
-      "How do you handle project communication?",
-      "We maintain a structured communication process with requirement discussions, progress updates, reviews, testing and final deployment so clients always understand the current project status.",
-    ],
-    [
-      "How can I start a project with Vighnex?",
-      "Simply contact us with your idea, requirements or business challenge. We will understand your objectives and discuss the most practical next steps.",
-    ],
-  ];
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    const form = e.currentTarget;
-    const body = new FormData(form);
-
-    body.append("access_key", "5fad69d61e5e48949197e16863e40e92");
+    const form = event.currentTarget;
+    const formData = new FormData(form);
 
     setFormStatus("sending");
 
@@ -179,1480 +130,1838 @@ export default function Home() {
       const response = await fetch("https://splitforms.com/api/submit", {
         method: "POST",
         headers: { Accept: "application/json" },
-        body,
+        body: formData,
       });
 
-      if (!response.ok) throw new Error("Submission failed");
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
 
-      form.reset();
       setFormStatus("success");
+      form.reset();
     } catch {
       setFormStatus("error");
     }
-  }
-
-  const page = {
-    background: "#faf7f0",
-    color: "#11243a",
-    minHeight: "100vh",
-    fontFamily: "Inter,Arial,sans-serif",
   };
 
-  const container = {
-    width: "min(1180px,92%)",
-    margin: "0 auto",
-  };
+  const styles = `
+    * {
+      box-sizing: border-box;
+    }
 
-  const section = {
-    padding: "90px 0",
-  };
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 25px;
+    }
 
-  const title = {
-    textAlign: "center",
-    maxWidth: 720,
-    margin: "0 auto 55px",
-  };
+    body {
+      margin: 0;
+    }
 
-  const eyebrow = {
-    color: "#c89032",
-    fontSize: 12,
-    letterSpacing: 3,
-    fontWeight: 800,
-    textTransform: "uppercase",
-    marginBottom: 14,
-  };
+    .vx-home {
+      width: 100%;
+      overflow: hidden;
+      color: ${colors.text};
+      background: ${colors.background};
+      font-family: Inter, "Segoe UI", Arial, sans-serif;
+    }
 
-  const button = {
-    border: 0,
-    borderRadius: 50,
-    padding: "14px 23px",
-    fontSize: 14,
-    fontWeight: 800,
-    cursor: "pointer",
-    display: "inline-flex",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 9,
-    textDecoration: "none",
-  };
+    .vx-home img {
+      max-width: 100%;
+    }
 
-  const dark = {
-    background: "linear-gradient(135deg,#071f32,#0d354c)",
-    color: "#fff",
-  };
+    .vx-container {
+      width: min(1180px, 92%);
+      margin: 0 auto;
+    }
+
+    .vx-section {
+      padding: 88px 0;
+    }
+
+    .vx-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 17px;
+      color: ${colors.blue};
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 2.8px;
+      text-transform: uppercase;
+    }
+
+    .vx-eyebrow::before {
+      content: "";
+      width: 25px;
+      height: 3px;
+      border-radius: 5px;
+      background: linear-gradient(
+        90deg,
+        ${colors.cyan},
+        ${colors.blue}
+      );
+    }
+
+    .vx-title {
+      max-width: 760px;
+      margin: 0 auto 48px;
+      text-align: center;
+    }
+
+    .vx-title h2 {
+      margin: 0 0 18px;
+      color: ${colors.navy};
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 5vw, 55px);
+      line-height: 1.12;
+      letter-spacing: -1.2px;
+    }
+
+    .vx-title p {
+      margin: 0;
+      color: ${colors.muted};
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .vx-gradient-text {
+      color: ${colors.blue};
+      background: linear-gradient(
+        100deg,
+        ${colors.blue},
+        ${colors.cyan},
+        ${colors.purple}
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .vx-button {
+      display: inline-flex;
+      min-height: 49px;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      padding: 13px 24px;
+      border: 0;
+      border-radius: 40px;
+      color: #fff;
+      background: linear-gradient(
+        110deg,
+        ${colors.blue},
+        ${colors.cyan}
+      );
+      box-shadow: 0 9px 25px rgba(18, 100, 216, 0.22);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+
+    .vx-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(18, 100, 216, 0.3);
+    }
+
+    .vx-button-outline {
+      border: 1px solid #b9d5f6;
+      color: ${colors.navy};
+      background: rgba(255, 255, 255, .75);
+      box-shadow: none;
+    }
+
+    .vx-button-outline:hover {
+      background: #fff;
+    }
+
+    .vx-hero {
+      position: relative;
+      display: flex;
+      min-height: 680px;
+      align-items: center;
+      padding: 80px 0;
+      overflow: hidden;
+      background:
+        radial-gradient(
+          circle at 82% 25%,
+          rgba(0, 200, 240, .19),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 68% 85%,
+          rgba(129, 56, 216, .11),
+          transparent 27%
+        ),
+        linear-gradient(120deg, #f8fbff, #e7f2ff);
+    }
+
+    .vx-hero::before {
+      content: "";
+      position: absolute;
+      top: -160px;
+      right: -100px;
+      width: 480px;
+      height: 480px;
+      border: 1px solid rgba(18, 100, 216, .13);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 45px rgba(18, 100, 216, .035),
+        0 0 0 95px rgba(0, 200, 240, .025);
+      pointer-events: none;
+    }
+
+    .vx-hero-grid {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1.05fr .95fr;
+      align-items: center;
+      gap: 50px;
+    }
+
+    .vx-hero h1 {
+      max-width: 700px;
+      margin: 0;
+      color: ${colors.navy};
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(45px, 6vw, 75px);
+      line-height: 1.02;
+      letter-spacing: -2.4px;
+    }
+
+    .vx-hero-description {
+      max-width: 590px;
+      margin: 25px 0 30px;
+      color: #526983;
+      font-size: 17px;
+      line-height: 1.85;
+    }
+
+    .vx-hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 13px;
+    }
+
+    .vx-hero-note {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 28px;
+      color: #536b86;
+      font-size: 13px;
+    }
+
+    .vx-hero-note span {
+      color: ${colors.blue};
+      font-size: 20px;
+    }
+
+    .vx-hero-visual {
+      position: relative;
+      min-width: 0;
+    }
+
+    .vx-hero-image {
+      display: block;
+      width: 100%;
+      height: 440px;
+      border: 7px solid rgba(255, 255, 255, .8);
+      border-radius: 30px 100px 30px 100px;
+      object-fit: cover;
+      box-shadow: 0 28px 70px rgba(6, 35, 75, .18);
+    }
+
+    .vx-floating {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 15px 18px;
+      border: 1px solid rgba(220, 235, 255, .8);
+      border-radius: 15px;
+      background: rgba(255, 255, 255, .96);
+      box-shadow: 0 15px 38px rgba(6, 35, 75, .13);
+    }
+
+    .vx-floating-icon {
+      display: grid;
+      width: 43px;
+      height: 43px;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 12px;
+      color: ${colors.blue};
+      background: #e7f5ff;
+      font-size: 23px;
+    }
+
+    .vx-floating strong {
+      display: block;
+      color: ${colors.navy};
+      font-size: 13px;
+    }
+
+    .vx-floating small {
+      display: block;
+      margin-top: 5px;
+      color: ${colors.muted};
+      font-size: 11px;
+    }
+
+    .vx-floating-one {
+      top: 35px;
+      left: -35px;
+    }
+
+    .vx-floating-two {
+      right: -25px;
+      bottom: 35px;
+    }
+
+    .vx-trust-strip {
+      position: relative;
+      z-index: 2;
+      padding: 23px 0;
+      color: #fff;
+      background: linear-gradient(
+        105deg,
+        ${colors.navy},
+        ${colors.navyLight},
+        #104b8b
+      );
+    }
+
+    .vx-trust-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .vx-trust-item {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      padding: 8px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .vx-trust-item span {
+      color: ${colors.cyan};
+      font-size: 22px;
+    }
+
+    .vx-about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .vx-about-image-wrap {
+      position: relative;
+      min-width: 0;
+    }
+
+    .vx-about-image {
+      display: block;
+      width: 100%;
+      height: 470px;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: 18px 20px 55px rgba(6, 35, 75, .14);
+    }
+
+    .vx-about-badge {
+      position: absolute;
+      right: -18px;
+      bottom: 25px;
+      width: 180px;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 18px;
+      color: #fff;
+      background: linear-gradient(
+        135deg,
+        ${colors.navy},
+        ${colors.blue}
+      );
+      box-shadow: 0 15px 35px rgba(6, 35, 75, .2);
+      text-align: center;
+    }
+
+    .vx-about-badge strong {
+      display: block;
+      color: ${colors.gold};
+      font-family: Georgia, serif;
+      font-size: 35px;
+    }
+
+    .vx-about-badge span {
+      display: block;
+      margin-top: 7px;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
+    .vx-about-copy h2 {
+      margin: 0 0 20px;
+      color: ${colors.navy};
+      font-family: Georgia, serif;
+      font-size: clamp(35px, 4.5vw, 52px);
+      line-height: 1.12;
+    }
+
+    .vx-about-copy p {
+      color: ${colors.muted};
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .vx-value-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin: 25px 0;
+    }
+
+    .vx-value {
+      padding: 17px;
+      border: 1px solid ${colors.border};
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .vx-value strong {
+      display: block;
+      margin-bottom: 6px;
+      color: ${colors.blue};
+      font-size: 13px;
+    }
+
+    .vx-value span {
+      color: ${colors.muted};
+      font-size: 12px;
+      line-height: 1.6;
+    }
+
+    .vx-services-section {
+      color: #fff;
+      background:
+        radial-gradient(
+          circle at 100% 0%,
+          rgba(0, 200, 240, .13),
+          transparent 30%
+        ),
+        linear-gradient(135deg, ${colors.navy}, #0a2e5e);
+    }
+
+    .vx-services-section .vx-title h2 {
+      color: #fff;
+    }
+
+    .vx-services-section .vx-title p {
+      color: #c5d7ec;
+    }
+
+    .vx-services-section .vx-eyebrow {
+      color: ${colors.cyan};
+    }
+
+    .vx-services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .vx-service-card {
+      position: relative;
+      display: block;
+      min-width: 0;
+      height: 260px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, .14);
+      border-radius: 18px;
+      background: #102e53;
+      cursor: pointer;
+      text-decoration: none;
+      isolation: isolate;
+    }
+
+    .vx-service-card::after {
+      content: "";
+      position: absolute;
+      z-index: 1;
+      inset: 0;
+      background: linear-gradient(
+        180deg,
+        rgba(4, 18, 42, .02) 20%,
+        rgba(4, 18, 42, .82) 100%
+      );
+      transition: background .25s ease;
+    }
+
+    .vx-service-card img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform .45s ease;
+    }
+
+    .vx-service-card:hover img {
+      transform: scale(1.07);
+    }
+
+    .vx-service-card:hover::after {
+      background: linear-gradient(
+        180deg,
+        rgba(4, 18, 42, .03) 10%,
+        rgba(4, 18, 42, .94) 100%
+      );
+    }
+
+    .vx-service-name {
+      position: absolute;
+      z-index: 2;
+      right: 18px;
+      bottom: 20px;
+      left: 18px;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 800;
+      text-align: left;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+    }
+
+    .vx-service-name::after {
+      content: " ↗";
+      color: ${colors.cyan};
+    }
+
+    .vx-why-section {
+      color: #fff;
+      background: ${colors.navy};
+    }
+
+    .vx-why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 65px;
+    }
+
+    .vx-why-grid h2 {
+      margin: 0 0 20px;
+      font-family: Georgia, serif;
+      font-size: clamp(36px, 4.5vw, 52px);
+      line-height: 1.12;
+    }
+
+    .vx-why-grid > div > p {
+      color: #c1d1e5;
+      line-height: 1.9;
+    }
+
+    .vx-why-list {
+      display: grid;
+      gap: 20px;
+      margin-top: 28px;
+    }
+
+    .vx-why-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .vx-why-icon {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      flex-shrink: 0;
+      place-items: center;
+      border-radius: 12px;
+      color: ${colors.cyan};
+      background: rgba(0, 200, 240, .12);
+      font-size: 19px;
+    }
+
+    .vx-why-item strong {
+      display: block;
+      margin-bottom: 5px;
+      color: #fff;
+      font-size: 14px;
+    }
+
+    .vx-why-item p {
+      margin: 0;
+      color: #b9cce2;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    .vx-why-image {
+      display: block;
+      width: 100%;
+      height: 510px;
+      border-radius: 24px;
+      object-fit: cover;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, .2);
+    }
+
+    .vx-tech-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .vx-tech {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 19px;
+      border: 1px solid ${colors.border};
+      border-radius: 12px;
+      color: ${colors.navy};
+      background: #fff;
+      font-size: 13px;
+      font-weight: 750;
+      transition: transform .2s, border-color .2s, box-shadow .2s;
+    }
+
+    .vx-tech:hover {
+      transform: translateY(-3px);
+      border-color: ${colors.cyan};
+      box-shadow: 0 9px 22px rgba(18, 100, 216, .08);
+    }
+
+    .vx-tech span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, ${colors.cyan}, ${colors.blue});
+    }
+
+    .vx-process-section {
+      background: #eaf3ff;
+    }
+
+    .vx-process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .vx-process-card {
+      padding: 25px;
+      border: 1px solid #d8e7fa;
+      border-radius: 17px;
+      background: #fff;
+      transition: transform .25s, box-shadow .25s;
+    }
+
+    .vx-process-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 32px rgba(6, 35, 75, .09);
+    }
+
+    .vx-process-number {
+      display: inline-grid;
+      width: 45px;
+      height: 45px;
+      place-items: center;
+      border-radius: 13px;
+      color: #fff;
+      background: linear-gradient(135deg, ${colors.blue}, ${colors.purple});
+      font-size: 13px;
+      font-weight: 850;
+    }
+
+    .vx-process-card h3 {
+      margin: 18px 0 8px;
+      color: ${colors.navy};
+      font-size: 18px;
+    }
+
+    .vx-process-card p {
+      margin: 0;
+      color: ${colors.muted};
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .vx-stats {
+      padding: 53px 0;
+      color: #fff;
+      background: linear-gradient(
+        105deg,
+        ${colors.navy},
+        #0c3e78,
+        #10366c
+      );
+    }
+
+    .vx-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .vx-stat {
+      padding: 15px;
+      text-align: center;
+    }
+
+    .vx-stat strong {
+      display: block;
+      margin-bottom: 9px;
+      color: ${colors.gold};
+      font-family: Georgia, serif;
+      font-size: clamp(34px, 4vw, 49px);
+    }
+
+    .vx-stat span {
+      color: #d0e2f7;
+      font-size: 12px;
+    }
+
+    .vx-project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .vx-project-image {
+      display: block;
+      width: 100%;
+      height: 290px;
+      border: 1px solid ${colors.border};
+      border-radius: 18px;
+      object-fit: cover;
+      background: #e0ebf9;
+      box-shadow: 0 10px 28px rgba(6, 35, 75, .08);
+      transition: transform .3s ease, box-shadow .3s ease;
+    }
+
+    .vx-project-image:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 17px 36px rgba(6, 35, 75, .15);
+    }
+
+    .vx-testimonials-section {
+      background: #eaf3ff;
+    }
+
+    .vx-testimonial-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .vx-testimonial {
+      padding: 27px;
+      border: 1px solid #dce8f7;
+      border-radius: 18px;
+      background: #fff;
+    }
+
+    .vx-stars {
+      margin-bottom: 16px;
+      color: ${colors.gold};
+      letter-spacing: 3px;
+    }
+
+    .vx-testimonial blockquote {
+      margin: 0 0 22px;
+      color: #465f7a;
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .vx-testimonial-person {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .vx-testimonial-person img {
+      width: 48px;
+      height: 48px;
+      border: 2px solid #dceeff;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .vx-testimonial-person strong {
+      display: block;
+      color: ${colors.navy};
+      font-size: 13px;
+    }
+
+    .vx-testimonial-person span {
+      display: block;
+      margin-top: 5px;
+      color: ${colors.muted};
+      font-size: 11px;
+    }
+
+    .vx-faq-list {
+      max-width: 850px;
+      margin: 0 auto;
+    }
+
+    .vx-faq-item {
+      margin-bottom: 10px;
+      overflow: hidden;
+      border: 1px solid ${colors.border};
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    .vx-faq-question {
+      display: flex;
+      width: 100%;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      padding: 19px 21px;
+      border: 0;
+      color: ${colors.navy};
+      background: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 800;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .vx-faq-question span:last-child {
+      color: ${colors.blue};
+      font-size: 23px;
+    }
+
+    .vx-faq-answer {
+      padding: 0 21px 21px;
+      color: ${colors.muted};
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .vx-contact-section {
+      color: #fff;
+      background:
+        radial-gradient(
+          circle at 90% 10%,
+          rgba(0, 200, 240, .16),
+          transparent 30%
+        ),
+        linear-gradient(125deg, ${colors.navy}, #0b3970);
+    }
+
+    .vx-contact-grid {
+      display: grid;
+      grid-template-columns: .9fr 1.1fr;
+      align-items: start;
+      gap: 55px;
+    }
+
+    .vx-contact-copy h2 {
+      margin: 0 0 20px;
+      font-family: Georgia, serif;
+      font-size: clamp(37px, 5vw, 57px);
+      line-height: 1.1;
+    }
+
+    .vx-contact-copy > p {
+      color: #c2d5eb;
+      font-size: 15px;
+      line-height: 1.9;
+    }
+
+    .vx-contact-photo {
+      display: block;
+      width: 100%;
+      height: 230px;
+      margin-top: 27px;
+      border-radius: 18px;
+      object-fit: cover;
+    }
+
+    .vx-contact-form {
+      padding: 30px;
+      border: 1px solid rgba(255, 255, 255, .3);
+      border-radius: 22px;
+      color: ${colors.navy};
+      background: #fff;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, .18);
+    }
+
+    .vx-contact-form h3 {
+      margin: 0 0 23px;
+      font-family: Georgia, serif;
+      font-size: 28px;
+    }
+
+    .vx-form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .vx-field {
+      display: block;
+      min-width: 0;
+    }
+
+    .vx-field-full {
+      grid-column: 1 / -1;
+    }
+
+    .vx-field span {
+      display: block;
+      margin-bottom: 7px;
+      color: #526983;
+      font-size: 10px;
+      font-weight: 850;
+      letter-spacing: 1px;
+    }
+
+    .vx-field input,
+    .vx-field select,
+    .vx-field textarea {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 13px;
+      border: 1px solid #d6e2f0;
+      border-radius: 10px;
+      outline: none;
+      color: ${colors.navy};
+      background: #f8fbff;
+      font-family: inherit;
+      font-size: 13px;
+      transition: border-color .2s, box-shadow .2s;
+    }
+
+    .vx-field input:focus,
+    .vx-field select:focus,
+    .vx-field textarea:focus {
+      border-color: ${colors.blue};
+      box-shadow: 0 0 0 3px rgba(18, 100, 216, .1);
+    }
+
+    .vx-field textarea {
+      resize: vertical;
+    }
+
+    .vx-contact-form .vx-button {
+      width: 100%;
+      margin-top: 18px;
+    }
+
+    .vx-form-message {
+      margin: 14px 0 0;
+      font-size: 13px;
+      line-height: 1.7;
+      text-align: center;
+    }
+
+    .vx-form-success {
+      padding: 45px 25px;
+      border-radius: 18px;
+      color: ${colors.navy};
+      background: #fff;
+      text-align: center;
+    }
+
+    .vx-form-success span {
+      display: block;
+      margin-bottom: 15px;
+      color: ${colors.blue};
+      font-size: 45px;
+    }
+
+    .vx-form-success h3 {
+      margin: 0 0 12px;
+    }
+
+    .vx-form-success p {
+      color: ${colors.muted};
+      line-height: 1.8;
+    }
+
+    @media (max-width: 1000px) {
+      .vx-hero-grid {
+        gap: 35px;
+      }
+
+      .vx-hero-image {
+        height: 370px;
+      }
+
+      .vx-about-grid,
+      .vx-why-grid {
+        gap: 40px;
+      }
+
+      .vx-services-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .vx-project-image {
+        height: 230px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .vx-section {
+        padding: 65px 0;
+      }
+
+      .vx-hero {
+        min-height: auto;
+        padding: 65px 0 55px;
+      }
+
+      .vx-hero-grid,
+      .vx-about-grid,
+      .vx-why-grid,
+      .vx-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 38px;
+      }
+
+      .vx-hero h1 {
+        font-size: clamp(43px, 10vw, 65px);
+      }
+
+      .vx-hero-image {
+        height: 340px;
+        border-radius: 23px 70px 23px 70px;
+      }
+
+      .vx-floating-one {
+        top: 15px;
+        left: -5px;
+      }
+
+      .vx-floating-two {
+        right: -5px;
+        bottom: 15px;
+      }
+
+      .vx-trust-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .vx-about-image {
+        height: 370px;
+      }
+
+      .vx-about-badge {
+        right: -5px;
+        width: 150px;
+      }
+
+      .vx-why-image {
+        height: 360px;
+      }
+
+      .vx-process-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .vx-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .vx-project-grid,
+      .vx-testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vx-project-image {
+        height: 290px;
+      }
+
+      .vx-contact-copy h2 {
+        font-size: 44px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .vx-container {
+        width: 90%;
+      }
+
+      .vx-section {
+        padding: 52px 0;
+      }
+
+      .vx-title {
+        margin-bottom: 32px;
+      }
+
+      .vx-title h2 {
+        font-size: 35px;
+      }
+
+      .vx-title p {
+        font-size: 14px;
+      }
+
+      .vx-hero h1 {
+        font-size: 43px;
+        letter-spacing: -1.4px;
+      }
+
+      .vx-hero-description {
+        font-size: 15px;
+      }
+
+      .vx-button {
+        padding: 12px 18px;
+        font-size: 12px;
+      }
+
+      .vx-hero-image {
+        height: 280px;
+      }
+
+      .vx-floating {
+        gap: 8px;
+        padding: 10px;
+      }
+
+      .vx-floating-icon {
+        width: 35px;
+        height: 35px;
+      }
+
+      .vx-floating strong {
+        font-size: 11px;
+      }
+
+      .vx-floating small {
+        font-size: 10px;
+      }
+
+      .vx-services-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vx-service-card {
+        height: 235px;
+      }
+
+      .vx-value-grid,
+      .vx-process-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vx-about-image {
+        height: 300px;
+      }
+
+      .vx-stats-grid {
+        gap: 5px;
+      }
+
+      .vx-stat strong {
+        font-size: 35px;
+      }
+
+      .vx-stat span {
+        font-size: 11px;
+      }
+
+      .vx-project-image {
+        height: 240px;
+      }
+
+      .vx-contact-form {
+        padding: 21px;
+      }
+
+      .vx-contact-form h3 {
+        font-size: 25px;
+      }
+
+      .vx-form-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .vx-field-full {
+        grid-column: auto;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .vx-home *,
+      .vx-home *::before,
+      .vx-home *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  `;
 
   return (
-    <div style={page}>
-      <Header
-        menuOpen={menuOpen}
-        setMenuOpen={setMenuOpen}
-        scrolled={scrolled}
-        scrollTo={scrollTo}
-      />
+    <div className="vx-home">
+      <style>{styles}</style>
 
-      <section
-        id="home"
-        style={{
-          minHeight: 720,
-          padding: "150px 0 80px",
-          background:
-            "radial-gradient(circle at 80% 35%,rgba(214,169,78,.22),transparent 32%),linear-gradient(110deg,#faf7f0 40%,#f0e5ce)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            ...container,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-            gap: 55,
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <div style={eyebrow}>Traditional Values · Digital Future</div>
+      <main>
+        {/* HERO */}
+        <section id="home" className="vx-hero">
+          <div className="vx-container vx-hero-grid">
+            <div>
+              <div className="vx-eyebrow">
+                Traditional Values · Digital Future
+              </div>
 
-            <h1
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(48px,7vw,78px)",
-                lineHeight: 0.98,
-                color: "#092338",
-                letterSpacing: -2,
-                margin: 0,
-              }}
-            >
-              Build Digital
-              <br />
-              <span style={{ color: "#c89032" }}>Possibilities.</span>
-            </h1>
+              <h1>
+                Build Digital
+                <br />
+                <span className="vx-gradient-text">
+                  Possibilities.
+                </span>
+              </h1>
 
-            <p
-              style={{
-                maxWidth: 600,
-                fontSize: 18,
-                lineHeight: 1.75,
-                color: "#566575",
-                margin: "27px 0 32px",
-              }}
-            >
-              We transform ambitious ideas into meaningful digital experiences
-              through technology, thoughtful design and strategies built for
-              long-term growth.
-            </p>
+              <p className="vx-hero-description">
+                We transform ambitious ideas into meaningful digital
+                experiences through technology, thoughtful design and
+                strategies built for long-term growth.
+              </p>
 
-            <div style={{ display: "flex", gap: 14, flexWrap: "wrap" }}>
+              <div className="vx-hero-actions">
+                <button
+                  className="vx-button"
+                  type="button"
+                  onClick={() => scrollTo("contact")}
+                >
+                  Start Your Journey <span>↗</span>
+                </button>
+
+                <button
+                  className="vx-button vx-button-outline"
+                  type="button"
+                  onClick={() => scrollTo("services")}
+                >
+                  Explore Services
+                </button>
+              </div>
+
+              <div className="vx-hero-note">
+                <span>✦</span>
+                Design-led. Engineering-driven. Growth-focused.
+              </div>
+            </div>
+
+            <div className="vx-hero-visual">
+              <img
+                className="vx-hero-image"
+                src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1200&q=85"
+                alt="Modern digital workspace"
+                fetchPriority="high"
+              />
+
+              <div className="vx-floating vx-floating-one">
+                <div className="vx-floating-icon">✧</div>
+                <div>
+                  <strong>Smart Solutions</strong>
+                  <small>Built around your goals</small>
+                </div>
+              </div>
+
+              <div className="vx-floating vx-floating-two">
+                <div className="vx-floating-icon">↗</div>
+                <div>
+                  <strong>Digital Growth</strong>
+                  <small>From idea to impact</small>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* TRUST STRIP */}
+        <section className="vx-trust-strip">
+          <div className="vx-container vx-trust-grid">
+            <div className="vx-trust-item">
+              <span>✦</span> Innovative Solutions
+            </div>
+            <div className="vx-trust-item">
+              <span>✓</span> Quality Focused
+            </div>
+            <div className="vx-trust-item">
+              <span>◇</span> Modern Technology
+            </div>
+            <div className="vx-trust-item">
+              <span>↗</span> Growth Mindset
+            </div>
+          </div>
+        </section>
+
+        {/* ABOUT */}
+        <section id="about" className="vx-section">
+          <div className="vx-container vx-about-grid">
+            <div className="vx-about-image-wrap">
+              <img
+                className="vx-about-image"
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1100&q=85"
+                alt="Team collaborating on digital projects"
+                loading="lazy"
+              />
+
+              <div className="vx-about-badge">
+              
+                <span>Digital thinking from strategy to scale</span>
+              </div>
+            </div>
+
+            <div className="vx-about-copy">
+              <div className="vx-eyebrow">About Vighnex</div>
+
+              <h2>
+                Rooted in values.
+                <br />
+                <span className="vx-gradient-text">
+                  Driven by innovation.
+                </span>
+              </h2>
+
+              <p>
+                Vighnex Technologies focuses on creating digital solutions
+                that are useful, intuitive and valuable to businesses.
+              </p>
+
+              <p>
+                Our approach brings strategy, design, engineering and
+                digital growth together to help turn ideas into practical
+                technology experiences.
+              </p>
+
+              <div className="vx-value-grid">
+                <div className="vx-value">
+                  <strong>Human First</strong>
+                  <span>We design around real people and real problems.</span>
+                </div>
+
+                <div className="vx-value">
+                  <strong>Quality Always</strong>
+                  <span>Every detail matters from concept to launch.</span>
+                </div>
+
+                <div className="vx-value">
+                  <strong>Think Long Term</strong>
+                  <span>We build solutions that can evolve with you.</span>
+                </div>
+
+                <div className="vx-value">
+                  <strong>Move With Purpose</strong>
+                  <span>Clear priorities create meaningful progress.</span>
+                </div>
+              </div>
+
               <button
+                className="vx-button"
+                type="button"
                 onClick={() => scrollTo("contact")}
-                style={{
-                  ...button,
-                  background: "#092338",
-                  color: "#fff",
-                  boxShadow: "0 12px 28px rgba(9,35,56,.18)",
-                }}
               >
-                Start Your Journey <Icon type="arrow" size={17} />
-              </button>
-
-              <button
-                onClick={() => scrollTo("services")}
-                style={{
-                  ...button,
-                  border: "1px solid #d7c9ae",
-                  color: "#092338",
-                  background: "transparent",
-                }}
-              >
-                Explore Services
+                Work With Us <span>↗</span>
               </button>
             </div>
-
-            <div
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: 10,
-                marginTop: 28,
-                color: "#526274",
-                fontSize: 13,
-              }}
-            >
-              <Icon type="shield" size={19} />
-              <span>
-                <strong style={{ color: "#092338" }}>Design-led.</strong>{" "}
-                Engineering-driven. Growth-focused.
-              </span>
-            </div>
           </div>
+        </section>
 
-          <div
-            style={{
-              position: "relative",
-              minHeight: 500,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <div
-              style={{
-                width: 440,
-                height: 500,
-                maxWidth: "90%",
-                borderRadius: "220px 220px 30px 30px",
-                background:
-                  "linear-gradient(145deg,rgba(200,144,50,.15),rgba(9,35,56,.1))",
-                position: "absolute",
-                transform: "rotate(5deg)",
-              }}
-            />
-
-            <img
-              src={poster}
-              alt="Vighnex Technologies"
-              style={{
-                width: "min(430px,85%)",
-                height: 260,
-                objectFit: "contain",
-                position: "relative",
-                zIndex: 2,
-                filter: "drop-shadow(0 25px 35px rgba(9,35,56,.16))",
-              }}
-            />
-
-            <div
-              style={{
-                position: "absolute",
-                left: 0,
-                top: 75,
-                background: "#fff",
-                padding: "17px 20px",
-                borderRadius: 18,
-                boxShadow: "0 15px 40px rgba(20,40,55,.13)",
-                display: "flex",
-                gap: 12,
-                alignItems: "center",
-                zIndex: 3,
-              }}
-            >
-              <div
-                style={{
-                  width: 43,
-                  height: 43,
-                  borderRadius: 13,
-                  background: "#fff2d4",
-                  color: "#c89032",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
-                <Icon type="spark" size={21} />
-              </div>
-              <div>
-                <strong style={{ display: "block", color: "#092338" }}>
-                  Smart Solutions
-                </strong>
-                <span style={{ fontSize: 11, color: "#7a8792" }}>
-                  Built around your goals
-                </span>
-              </div>
-            </div>
-
-            <div
-              style={{
-                position: "absolute",
-                right: 0,
-                bottom: 55,
-                background: "#fff",
-                padding: "17px 20px",
-                borderRadius: 18,
-                boxShadow: "0 15px 40px rgba(20,40,55,.13)",
-                display: "flex",
-                gap: 12,
-                alignItems: "center",
-                zIndex: 3,
-              }}
-            >
-              <div
-                style={{
-                  width: 43,
-                  height: 43,
-                  borderRadius: 13,
-                  background: "#fff2d4",
-                  color: "#c89032",
-                  display: "grid",
-                  placeItems: "center",
-                }}
-              >
-                <Icon type="rocket" size={21} />
-              </div>
-              <div>
-                <strong style={{ display: "block", color: "#092338" }}>
-                  Digital Growth
-                </strong>
-                <span style={{ fontSize: 11, color: "#7a8792" }}>
-                  From idea to impact
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="about" style={section}>
-        <div
-          style={{
-            ...container,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-            gap: 70,
-            alignItems: "center",
-          }}
+        {/* SERVICES - IMAGE-FOCUSED CARDS */}
+        <section
+          id="services"
+          className="vx-section vx-services-section"
         >
-          <div style={{ position: "relative" }}>
-            <img
-              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1000&q=85"
-              alt="Vighnex Technologies team"
-              loading="lazy"
-              style={{
-                width: "100%",
-                height: 500,
-                objectFit: "cover",
-                borderRadius: 25,
-                display: "block",
-                boxShadow: "20px 25px 60px rgba(17,36,58,.13)",
-              }}
-            />
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">What We Do</div>
 
-            <div
-              style={{
-                position: "absolute",
-                right: -20,
-                bottom: 25,
-                background: "#092338",
-                color: "#fff",
-                padding: 24,
-                borderRadius: 20,
-                width: 190,
-                textAlign: "center",
-              }}
-            >
-              <strong
-                style={{
-                  display: "block",
-                  fontFamily: "Georgia,serif",
-                  fontSize: 38,
-                  color: "#e6b85c",
-                }}
-              >
-                360°
-              </strong>
-              <span style={{ fontSize: 12 }}>
-                Digital thinking from strategy to scale
-              </span>
+              <h2>
+                Complete Digital Solutions
+                <br />
+                Under One Roof
+              </h2>
+
+              <p>
+                Explore our digital services for building, launching and
+                growing your business.
+              </p>
             </div>
-          </div>
 
-          <div>
-            <div style={eyebrow}>About Vighnex</div>
-
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(38px,5vw,56px)",
-                lineHeight: 1.05,
-                color: "#092338",
-                marginBottom: 22,
-              }}
-            >
-              Rooted in values. Driven by innovation.
-            </h2>
-
-            <p
-              style={{
-                fontSize: 16,
-                lineHeight: 1.85,
-                color: "#637181",
-                marginBottom: 17,
-              }}
-            >
-              Vighnex Technologies is a digital solutions company focused on
-              creating technology that feels useful, intuitive and genuinely
-              valuable.
-            </p>
-
-            <p
-              style={{
-                fontSize: 16,
-                lineHeight: 1.85,
-                color: "#637181",
-              }}
-            >
-              Our approach brings strategy, design, engineering and growth
-              together so businesses do not have to manage disconnected digital
-              partners.
-            </p>
-
-            <div
-              style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(auto-fit,minmax(190px,1fr))",
-                gap: 14,
-                margin: "28px 0",
-              }}
-            >
-              {[
-                ["Human First", "We design around real people and real problems."],
-                ["Quality Always", "Every detail matters from concept to deployment."],
-                ["Think Long Term", "We build foundations that can evolve with you."],
-                ["Move With Purpose", "Clear priorities create meaningful progress."],
-              ].map(([a, b]) => (
-                <div
-                  key={a}
-                  style={{
-                    padding: 17,
-                    border: "1px solid #e8decb",
-                    borderRadius: 15,
-                    background: "#fff",
-                  }}
+            <div className="vx-services-grid">
+              {services.map((service) => (
+                <a
+                  key={service.title}
+                  href="#contact"
+                  className="vx-service-card"
+                  aria-label={`Enquire about ${service.title}`}
                 >
-                  <strong
-                    style={{
-                      display: "block",
-                      color: "#092338",
-                      marginBottom: 5,
-                    }}
-                  >
-                    {a}
-                  </strong>
-                  <span style={{ fontSize: 12, color: "#637181" }}>{b}</span>
-                </div>
-              ))}
-            </div>
+                  <img
+                    src={service.image}
+                    alt={service.title}
+                    loading="lazy"
+                  />
 
-            <button
-              onClick={() => scrollTo("contact")}
-              style={{
-                ...button,
-                background: "#092338",
-                color: "#fff",
-              }}
-            >
-              Work With Us <Icon type="arrow" size={17} />
-            </button>
-          </div>
-        </div>
-      </section>
-
-      <section id="services" style={{ ...section, ...dark }}>
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>What We Do</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                lineHeight: 1.05,
-                marginBottom: 18,
-                color: "#fff",
-              }}
-            >
-              Complete digital solutions under one roof.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#cbd8e0" }}>
-              From your first sketch to your next million users, our
-              capabilities are designed to work together.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))",
-              gap: 17,
-            }}
-          >
-            {services.map((service) => (
-              <div
-                key={service.title}
-                style={{
-                  background: "#fff",
-                  color: "#11243a",
-                  borderRadius: 20,
-                  overflow: "hidden",
-                  boxShadow: "0 15px 40px rgba(0,0,0,.16)",
-                }}
-              >
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: 145,
-                    objectFit: "cover",
-                    display: "block",
-                  }}
-                />
-
-                <div style={{ padding: 22 }}>
-                  <div
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: 15,
-                      display: "grid",
-                      placeItems: "center",
-                      background: "#fff1cf",
-                      color: "#c89032",
-                      marginBottom: 18,
-                    }}
-                  >
-                    <Icon type={service.icon} size={26} />
-                  </div>
-
-                  <h3
-                    style={{
-                      fontFamily: "Georgia,serif",
-                      fontSize: 21,
-                      marginBottom: 12,
-                    }}
-                  >
+                  <span className="vx-service-name">
                     {service.title}
-                  </h3>
-
-                  <p
-                    style={{
-                      color: "#637181",
-                      fontSize: 13,
-                      lineHeight: 1.7,
-                      marginBottom: 18,
-                    }}
-                  >
-                    {service.text}
-                  </p>
-
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                    {service.tags.map((tag) => (
-                      <span
-                        key={tag}
-                        style={{
-                          fontSize: 10,
-                          border: "1px solid #d9e2e8",
-                          borderRadius: 20,
-                          padding: "6px 8px",
-                          color: "#60717f",
-                        }}
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
+                  </span>
+                </a>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="why" style={{ ...section, ...dark }}>
-        <div
-          style={{
-            ...container,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-            gap: 65,
-            alignItems: "center",
-          }}
-        >
-          <div>
-            <div style={eyebrow}>Why Choose Us</div>
+        {/* WHY CHOOSE US */}
+        <section id="why" className="vx-section vx-why-section">
+          <div className="vx-container vx-why-grid">
+            <div>
+              <div className="vx-eyebrow">Why Choose Us</div>
 
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(38px,5vw,56px)",
-                lineHeight: 1.08,
-                marginBottom: 20,
-              }}
-            >
-              Technology with a human touch.
-            </h2>
+              <h2>
+                Technology with a{" "}
+                <span style={{ color: colors.cyan }}>
+                  human touch.
+                </span>
+              </h2>
 
-            <p
-              style={{
-                lineHeight: 1.8,
-                color: "#b9cad4",
-                marginBottom: 25,
-              }}
-            >
-              Good technology should simplify complexity, not add to it. We
-              combine strategic thinking, modern engineering and thoughtful
-              communication to make digital projects easier to build and better
-              to experience.
-            </p>
+              <p>
+                Good technology should simplify complexity, not add to it.
+                We combine strategic thinking, modern engineering and
+                thoughtful communication to create better digital
+                experiences.
+              </p>
 
-            <div style={{ display: "grid", gap: 17 }}>
-              {[
-                ["Business Understanding", "We start with your objectives instead of jumping directly into technology.", "target"],
-                ["Transparent Collaboration", "Clear milestones, regular reviews and straightforward communication.", "users"],
-                ["Modern Engineering", "Scalable architecture, clean development practices and performance-focused delivery.", "code"],
-                ["Security & Reliability", "Security-conscious implementation and dependable digital foundations.", "shield"],
-                ["Growth Mindset", "We design products that can improve continuously after launch.", "spark"],
-              ].map(([a, b, c]) => (
-                <div
-                  key={a}
-                  style={{
-                    display: "flex",
-                    gap: 15,
-                    alignItems: "flex-start",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 35,
-                      height: 35,
-                      minWidth: 35,
-                      borderRadius: "50%",
-                      background: "rgba(230,184,92,.15)",
-                      color: "#e6b85c",
-                      display: "grid",
-                      placeItems: "center",
-                    }}
-                  >
-                    <Icon type={c} size={18} />
+              <div className="vx-why-list">
+                {[
+                  [
+                    "◎",
+                    "Business Understanding",
+                    "We begin with your objectives and business requirements.",
+                  ],
+                  [
+                    "◇",
+                    "Transparent Collaboration",
+                    "Clear milestones and straightforward communication.",
+                  ],
+                  [
+                    "⌘",
+                    "Modern Engineering",
+                    "Scalable architecture and performance-focused delivery.",
+                  ],
+                  [
+                    "✓",
+                    "Reliable Delivery",
+                    "We focus on quality throughout the development process.",
+                  ],
+                ].map(([icon, heading, description]) => (
+                  <div className="vx-why-item" key={heading}>
+                    <div className="vx-why-icon">{icon}</div>
+
+                    <div>
+                      <strong>{heading}</strong>
+                      <p>{description}</p>
+                    </div>
                   </div>
+                ))}
+              </div>
+            </div>
 
-                  <div>
-                    <strong style={{ display: "block", marginBottom: 4 }}>
-                      {a}
-                    </strong>
-                    <span
-                      style={{
-                        fontSize: 13,
-                        lineHeight: 1.5,
-                        color: "#a9bdc9",
-                      }}
-                    >
-                      {b}
-                    </span>
-                  </div>
+            <img
+              className="vx-why-image"
+              src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1100&q=85"
+              alt="Professionals collaborating on a project"
+              loading="lazy"
+            />
+          </div>
+        </section>
+
+        {/* TECHNOLOGY */}
+        <section id="technology" className="vx-section">
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">Technology Stack</div>
+
+              <h2>
+                Built with technology
+                <br />
+                that moves forward.
+              </h2>
+
+              <p>
+                We select tools based on your project's needs, performance
+                requirements and long-term goals.
+              </p>
+            </div>
+
+            <div className="vx-tech-grid">
+              {technologies.map((technology) => (
+                <div className="vx-tech" key={technology}>
+                  <span />
+                  {technology}
                 </div>
               ))}
             </div>
           </div>
+        </section>
 
-          <img
-            src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1100&q=85"
-            alt="Vighnex Technologies business team"
-            loading="lazy"
-            style={{
-              width: "100%",
-              height: 560,
-              objectFit: "cover",
-              borderRadius: 30,
-              display: "block",
-              boxShadow: "0 25px 60px rgba(0,0,0,.2)",
-            }}
-          />
-        </div>
-      </section>
+        {/* PROCESS */}
+        <section id="process" className="vx-section vx-process-section">
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">Our Process</div>
 
-      <section id="technology" style={section}>
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>Technology Stack</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                lineHeight: 1.05,
-                color: "#092338",
-                marginBottom: 18,
-              }}
-            >
-              Built with technology that moves forward.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#637181" }}>
-              We choose tools based on the problem, not trends. Our stack
-              supports fast development today and sustainable growth tomorrow.
-            </p>
-          </div>
+              <h2>
+                From first conversation
+                <br />
+                to lasting impact.
+              </h2>
 
-          <div
-            style={{
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "center",
-              gap: 12,
-              maxWidth: 900,
-              margin: "auto",
-            }}
-          >
-            {technologies.map(([a, b]) => (
-              <div
-                key={a}
-                style={{
-                  background: "#fff",
-                  border: "1px solid #e9e0d0",
-                  padding: "16px 21px",
-                  borderRadius: 15,
-                  display: "flex",
-                  gap: 9,
-                  alignItems: "center",
-                }}
-              >
-                <span
-                  style={{
-                    width: 9,
-                    height: 9,
-                    borderRadius: "50%",
-                    background: "#c89032",
-                  }}
-                />
-                <strong>{a}</strong>
-                <small style={{ color: "#85909b" }}>{b}</small>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="process"
-        style={{
-          ...section,
-          background: "#f3ecdf",
-        }}
-      >
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>Our Process</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                lineHeight: 1.05,
-                color: "#092338",
-                marginBottom: 18,
-              }}
-            >
-              From first conversation to lasting impact.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#637181" }}>
-              A structured process keeps creativity focused, development
-              predictable and every decision connected to your goals.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(160px,1fr))",
-              gap: 25,
-            }}
-          >
-            {process.map(([num, name, text, icon]) => (
-              <div
-                key={name}
-                style={{
-                  textAlign: "center",
-                  padding: 10,
-                }}
-              >
-                <div
-                  style={{
-                    color: "#c89032",
-                    fontFamily: "Georgia,serif",
-                    fontSize: 13,
-                    marginBottom: 10,
-                  }}
-                >
-                  {num}
-                </div>
-
-                <div
-                  style={{
-                    width: 70,
-                    height: 70,
-                    borderRadius: "50%",
-                    border: "1px solid #e1c78d",
-                    background: "#fff",
-                    margin: "0 auto 17px",
-                    display: "grid",
-                    placeItems: "center",
-                    color: "#c89032",
-                  }}
-                >
-                  <Icon type={icon} size={28} />
-                </div>
-
-                <h3
-                  style={{
-                    fontFamily: "Georgia,serif",
-                    marginBottom: 8,
-                  }}
-                >
-                  {name}
-                </h3>
-
-                <p
-                  style={{
-                    fontSize: 12,
-                    lineHeight: 1.6,
-                    color: "#637181",
-                  }}
-                >
-                  {text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        style={{
-          background: "#092338",
-          color: "#fff",
-          padding: "65px 0",
-        }}
-      >
-        <div
-          style={{
-            ...container,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(180px,1fr))",
-            textAlign: "center",
-          }}
-        >
-          {[
-            ["50+", "Digital Ideas Transformed"],
-            ["100+", "Projects & Deliverables"],
-            ["24/7", "Digital Possibilities"],
-            ["100%", "Commitment to Quality"],
-          ].map(([a, b]) => (
-            <div key={b} style={{ padding: 20 }}>
-              <strong
-                style={{
-                  fontFamily: "Georgia,serif",
-                  fontSize: 48,
-                  color: "#e6b85c",
-                  display: "block",
-                }}
-              >
-                {a}
-              </strong>
-              <span style={{ fontSize: 13, color: "#bdcdd6" }}>{b}</span>
+              <p>
+                A structured process keeps creativity focused and
+                development connected to your goals.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
 
-      <section id="projects" style={section}>
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>Selected Work</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                color: "#092338",
-                marginBottom: 18,
-              }}
-            >
-              Ideas become experiences.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#637181" }}>
-              A glimpse into the kind of digital experiences we love creating.
-            </p>
+            <div className="vx-process-grid">
+              {processSteps.map(([number, name, description]) => (
+                <div className="vx-process-card" key={number}>
+                  <span className="vx-process-number">{number}</span>
+                  <h3>{name}</h3>
+                  <p>{description}</p>
+                </div>
+              ))}
+            </div>
           </div>
+        </section>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-              gap: 22,
-            }}
-          >
-            {projects.map((project) => (
-              <div
-                key={project.title}
-                style={{
-                  background: "#fff",
-                  borderRadius: 22,
-                  overflow: "hidden",
-                  boxShadow: "0 10px 35px rgba(25,43,60,.08)",
-                }}
-              >
+        {/* STATS */}
+        <section className="vx-stats">
+          <div className="vx-container vx-stats-grid">
+            {[
+              ["20+","Projects"],
+              ["6+", "Core Service Areas"],
+              ["24/7", "Digital Possibilities"],
+              ["100%", "Commitment to Quality"],
+            ].map(([number, label]) => (
+              <div className="vx-stat" key={label}>
+                <strong>{number}</strong>
+                <span>{label}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* PROJECT GALLERY - IMAGE ONLY */}
+        <section id="projects" className="vx-section">
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">Selected Work</div>
+
+              <h2>
+                Ideas become
+                <br />
+                <span className="vx-gradient-text">
+                  experiences.
+                </span>
+              </h2>
+
+              <p>
+                A visual look at digital products, interfaces and
+                experiences.
+              </p>
+            </div>
+
+            <div className="vx-project-grid">
+              {projects.map((image, index) => (
                 <img
-                  src={poster}
-                  alt={project.title}
+                  className="vx-project-image"
+                  key={image}
+                  src={image}
+                  alt={`Digital project example ${index + 1}`}
                   loading="lazy"
-                  style={{
-                    width: "100%",
-                    height: 240,
-                    objectFit: "cover",
-                    display: "block",
-                  }}
                 />
+              ))}
+            </div>
+          </div>
+        </section>
 
-                <div style={{ padding: 25 }}>
-                  <div
-                    style={{
-                      fontSize: 10,
-                      color: "#c89032",
-                      fontWeight: 800,
-                      letterSpacing: 2,
-                    }}
-                  >
-                    {project.category}
+        {/* TESTIMONIALS */}
+        <section
+          id="testimonials"
+          className="vx-section vx-testimonials-section"
+        >
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">Client Voices</div>
+
+              <h2>Built on trust. Remembered for results.</h2>
+
+              <p>
+                Clear communication and thoughtful collaboration matter
+                throughout every project.
+              </p>
+            </div>
+
+            <div className="vx-testimonial-grid">
+              {[
+                {
+                  name: "Client Feedback",
+                  role: "Digital Project",
+                  text: "A great digital experience begins with understanding the client's goals and turning them into a practical solution.",
+                  image:
+                    "https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=200&q=80",
+                },
+                {
+                  name: "Project Collaboration",
+                  role: "Design & Development",
+                  text: "Thoughtful design and a structured development process help create products that are clear, useful and engaging.",
+                  image:
+                    "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=200&q=80",
+                },
+                {
+                  name: "Business Growth",
+                  role: "Digital Solutions",
+                  text: "A strong digital presence brings design, technology and business strategy together in one connected experience.",
+                  image:
+                    "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=200&q=80",
+                },
+              ].map((item) => (
+                <article className="vx-testimonial" key={item.name}>
+                  <div className="vx-stars" aria-label="Five stars">
+                    ★★★★★
                   </div>
 
-                  <h3
-                    style={{
-                      fontFamily: "Georgia,serif",
-                      fontSize: 27,
-                      margin: "8px 0",
-                    }}
-                  >
-                    {project.title}
-                  </h3>
+                  <blockquote>{item.text}</blockquote>
 
-                  <p
-                    style={{
-                      fontSize: 13,
-                      lineHeight: 1.7,
-                      color: "#637181",
-                      marginBottom: 17,
-                    }}
+                  <div className="vx-testimonial-person">
+                    <img
+                      src={item.image}
+                      alt=""
+                      loading="lazy"
+                    />
+
+                    <div>
+                      <strong>{item.name}</strong>
+                      <span>{item.role}</span>
+                    </div>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ */}
+        <section id="faq" className="vx-section">
+          <div className="vx-container">
+            <div className="vx-title">
+              <div className="vx-eyebrow">Frequently Asked Questions</div>
+
+              <h2>Questions before we begin?</h2>
+
+              <p>
+                Learn more about our services and how to get started.
+              </p>
+            </div>
+
+            <div className="vx-faq-list">
+              {faqs.map(([question, answer], index) => (
+                <div className="vx-faq-item" key={question}>
+                  <button
+                    className="vx-faq-question"
+                    type="button"
+                    aria-expanded={activeFaq === index}
+                    onClick={() =>
+                      setActiveFaq(activeFaq === index ? -1 : index)
+                    }
                   >
-                    {project.text}
+                    <span>{question}</span>
+                    <span>{activeFaq === index ? "−" : "+"}</span>
+                  </button>
+
+                  {activeFaq === index && (
+                    <div className="vx-faq-answer">{answer}</div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CONTACT */}
+        <section id="contact" className="vx-section vx-contact-section">
+          <div className="vx-container vx-contact-grid">
+            <div className="vx-contact-copy">
+              <div className="vx-eyebrow">Let's Connect</div>
+
+              <h2>
+                Have an idea?
+                <br />
+                <span style={{ color: colors.cyan }}>
+                  Let's make it real.
+                </span>
+              </h2>
+
+              <p>
+                Tell us what you are building, what you want to improve or
+                where you want to go next. Share your requirements and
+                start a conversation with Vighnex Technologies.
+              </p>
+
+              <img
+                className="vx-contact-photo"
+                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=85"
+                alt="Team working together"
+                loading="lazy"
+              />
+            </div>
+
+            <div>
+              {formStatus === "success" ? (
+                <div className="vx-form-success">
+                  <span>✓</span>
+                  <h3>Thank You!</h3>
+                  <p>
+                    Your message was submitted successfully. Our team
+                    will get back to you.
                   </p>
 
                   <button
-                    onClick={() => scrollTo("contact")}
-                    style={{
-                      border: 0,
-                      background: "transparent",
-                      color: "#092338",
-                      fontWeight: 800,
-                      cursor: "pointer",
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 7,
-                    }}
+                    type="button"
+                    className="vx-button"
+                    onClick={() => setFormStatus("idle")}
                   >
-                    Discuss a Similar Project <Icon type="arrow" size={15} />
+                    Send Another Message
                   </button>
                 </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="testimonials"
-        style={{
-          ...section,
-          background: "#f3ecdf",
-        }}
-      >
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>Client Voices</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                color: "#092338",
-                marginBottom: 18,
-              }}
-            >
-              Built on trust. Remembered for results.
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#637181" }}>
-              Strong partnerships are at the center of everything we build.
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))",
-              gap: 22,
-            }}
-          >
-            {testimonials.map((item) => (
-              <div
-                key={item.name}
-                style={{
-                  background: "#fff",
-                  border: "1px solid #eee5d7",
-                  borderRadius: 22,
-                  padding: 30,
-                }}
-              >
-                <div
-                  style={{
-                    color: "#c89032",
-                    display: "flex",
-                    gap: 2,
-                    marginBottom: 20,
-                  }}
+              ) : (
+                <form
+                  className="vx-contact-form"
+                  onSubmit={handleSubmit}
                 >
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Icon key={i} type="star" size={15} />
-                  ))}
-                </div>
+                  <h3>Start a Conversation</h3>
 
-                <p
-                  style={{
-                    fontFamily: "Georgia,serif",
-                    fontSize: 18,
-                    lineHeight: 1.65,
-                    color: "#33495b",
-                    marginBottom: 25,
-                  }}
-                >
-                  “{item.text}”
-                </p>
+                  <div className="vx-form-grid">
+                    <label className="vx-field">
+                      <span>YOUR NAME</span>
+                      <input
+                        type="text"
+                        name="name"
+                        placeholder="Enter your name"
+                        autoComplete="name"
+                        required
+                      />
+                    </label>
 
-                <div
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 13,
-                  }}
-                >
-                  <img
-                    src={logo}
-                    alt={item.name}
-                    loading="lazy"
-                    style={{
-                      width: 52,
-                      height: 52,
-                      borderRadius: "50%",
-                      objectFit: "cover",
-                    }}
-                  />
+                    <label className="vx-field">
+                      <span>EMAIL ADDRESS</span>
+                      <input
+                        type="email"
+                        name="email"
+                        placeholder="you@example.com"
+                        autoComplete="email"
+                        required
+                      />
+                    </label>
 
-                  <div>
-                    <strong style={{ display: "block", color: "#092338" }}>
-                      {item.name}
-                    </strong>
-                    <span style={{ fontSize: 11, color: "#637181" }}>
-                      {item.role}
-                    </span>
+                    <label className="vx-field">
+                      <span>PHONE NUMBER</span>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder="+91 XXXXX XXXXX"
+                        autoComplete="tel"
+                      />
+                    </label>
+
+                    <label className="vx-field">
+                      <span>SERVICE</span>
+                      <select name="choice" defaultValue="" required>
+                        <option value="" disabled>
+                          Select a service
+                        </option>
+                        <option>Web Development</option>
+                        <option>Mobile App Development</option>
+                        <option>UI/UX Design</option>
+                        <option>Digital Marketing</option>
+                        <option>Logo & Branding</option>
+                        <option>Cloud Deployment</option>
+                        <option>Complete Digital Solution</option>
+                      </select>
+                    </label>
+
+                    <label className="vx-field vx-field-full">
+                      <span>PROJECT DETAILS</span>
+                      <textarea
+                        name="message"
+                        rows={5}
+                        placeholder="Tell us about your idea or requirements..."
+                        required
+                      />
+                    </label>
                   </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
-      <section id="faq" style={section}>
-        <div style={container}>
-          <div style={title}>
-            <div style={eyebrow}>FAQ</div>
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(36px,5vw,58px)",
-                color: "#092338",
-                marginBottom: 18,
-              }}
-            >
-              Questions before we begin?
-            </h2>
-            <p style={{ fontSize: 17, lineHeight: 1.8, color: "#637181" }}>
-              Here are answers to some of the things clients ask us most often.
-            </p>
-          </div>
+                  <button
+                    type="submit"
+                    className="vx-button"
+                    disabled={formStatus === "sending"}
+                  >
+                    {formStatus === "sending"
+                      ? "Sending..."
+                      : "Send Enquiry"}
+                    <span>↗</span>
+                  </button>
 
-          <div style={{ maxWidth: 850, margin: "auto" }}>
-            {faqs.map(([question, answer], index) => (
-              <div
-                key={question}
-                style={{
-                  borderBottom: "1px solid #e1d8ca",
-                }}
-              >
-                <button
-                  onClick={() =>
-                    setActiveFaq(activeFaq === index ? -1 : index)
-                  }
-                  aria-expanded={activeFaq === index}
-                  style={{
-                    width: "100%",
-                    padding: "23px 0",
-                    background: "transparent",
-                    border: 0,
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    textAlign: "left",
-                    cursor: "pointer",
-                    color: "#092338",
-                    fontSize: 16,
-                    fontWeight: 800,
-                    gap: 20,
-                  }}
-                >
-                  <span>{question}</span>
-                  <span
+                  {formStatus === "error" && (
+                    <p
+                      className="vx-form-message"
+                      style={{ color: "#c62828" }}
+                      role="alert"
+                    >
+                      Unable to submit your enquiry. Please try again.
+                    </p>
+                  )}
+
+                  <p
                     style={{
-                      fontSize: 24,
-                      color: "#c89032",
-                      minWidth: 25,
+                      color: "#73859a",
+                      fontSize: 11,
+                      lineHeight: 1.6,
                       textAlign: "center",
                     }}
                   >
-                    {activeFaq === index ? "−" : "+"}
-                  </span>
-                </button>
-
-                {activeFaq === index && (
-                  <div
-                    style={{
-                      padding: "0 40px 22px 0",
-                      color: "#637181",
-                      lineHeight: 1.8,
-                      fontSize: 14,
-                    }}
-                  >
-                    {answer}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section
-        id="contact"
-        style={{
-          ...section,
-          background: "linear-gradient(135deg,#071f32,#123b52)",
-          color: "#fff",
-        }}
-      >
-        <div
-          style={{
-            ...container,
-            display: "grid",
-            gridTemplateColumns: "repeat(auto-fit,minmax(320px,1fr))",
-            gap: 60,
-            alignItems: "start",
-          }}
-        >
-          <div>
-            <div style={eyebrow}>Let's Connect</div>
-
-            <h2
-              style={{
-                fontFamily: "Georgia,serif",
-                fontSize: "clamp(40px,5vw,60px)",
-                lineHeight: 1.05,
-                marginBottom: 20,
-              }}
-            >
-              Have an idea? Let's make it real.
-            </h2>
-
-            <p
-              style={{
-                color: "#b8cad5",
-                lineHeight: 1.8,
-                marginBottom: 30,
-              }}
-            >
-              Tell us what you are building, what you want to improve or simply
-              where you want to go next. We would love to hear the story behind
-              your idea.
-            </p>
-
-            <div style={{ display: "grid", gap: 18 }}>
-              {[
-                ["phone", "Call Us", "+91 9390642779"],
-                ["mail", "Email Us", "vighnex@gmail.com"],
-                ["location", "Location", "Banglore, India"],
-              ].map(([icon, label, value]) => (
-                <div
-                  key={label}
-                  style={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 14,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 43,
-                      height: 43,
-                      borderRadius: 13,
-                      background: "rgba(230,184,92,.13)",
-                      color: "#e6b85c",
-                      display: "grid",
-                      placeItems: "center",
-                    }}
-                  >
-                    <Icon type={icon} size={19} />
-                  </div>
-
-                  <div>
-                    <strong style={{ display: "block", fontSize: 13 }}>
-                      {label}
-                    </strong>
-                    <span style={{ fontSize: 12, color: "#adc0cb" }}>
-                      {value}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <img
-              src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&w=900&q=85"
-              alt="Digital collaboration"
-              loading="lazy"
-              style={{
-                width: "100%",
-                maxWidth: 480,
-                height: 210,
-                objectFit: "cover",
-                borderRadius: 20,
-                marginTop: 35,
-                opacity: 0.85,
-              }}
-            />
-          </div>
-
-          {formStatus === "success" ? (
-            <div
-              style={{
-                background: "#fff",
-                color: "#092338",
-                borderRadius: 25,
-                padding: 45,
-                textAlign: "center",
-                boxShadow: "0 25px 60px rgba(0,0,0,.2)",
-              }}
-            >
-              <div
-                style={{
-                  width: 70,
-                  height: 70,
-                  borderRadius: "50%",
-                  background: "#fff1cf",
-                  color: "#c89032",
-                  display: "grid",
-                  placeItems: "center",
-                  margin: "0 auto 20px",
-                }}
-              >
-                <Icon type="check" size={35} />
-              </div>
-
-              <h3
-                style={{
-                  fontFamily: "Georgia,serif",
-                  fontSize: 30,
-                  marginBottom: 12,
-                }}
-              >
-                Thank You!
-              </h3>
-
-              <p style={{ color: "#637181", lineHeight: 1.7 }}>
-                Your message has been sent successfully. Our team will get back
-                to you soon.
-              </p>
-
-              <button
-                onClick={() => setFormStatus("idle")}
-                style={{
-                  ...button,
-                  marginTop: 25,
-                  background: "#092338",
-                  color: "#fff",
-                }}
-              >
-                Send Another Message
-              </button>
-            </div>
-          ) : (
-            <form
-              onSubmit={handleSubmit}
-              style={{
-                background: "#fff",
-                color: "#092338",
-                borderRadius: 25,
-                padding: 32,
-                boxShadow: "0 25px 60px rgba(0,0,0,.2)",
-              }}
-            >
-              <h3
-                style={{
-                  fontFamily: "Georgia,serif",
-                  fontSize: 30,
-                  marginBottom: 22,
-                }}
-              >
-                Start a conversation
-              </h3>
-
-              <div
-                style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit,minmax(210px,1fr))",
-                  gap: 15,
-                }}
-              >
-                {[
-                  ["name", "YOUR NAME", "Enter your name", "text", true],
-                  ["email", "EMAIL ADDRESS", "you@example.com", "email", true],
-                  ["phone", "PHONE NUMBER", "+91 XXXXX XXXXX", "tel", false],
-                ].map(([name, label, placeholder, type, required]) => (
-                  <label
-                    key={name}
-                    style={{
-                      display: "block",
-                    }}
-                  >
-                    <span
-                      style={{
-                        display: "block",
-                        fontSize: 11,
-                        fontWeight: 800,
-                        marginBottom: 7,
-                        color: "#556575",
-                      }}
-                    >
-                      {label}
-                    </span>
-
-                    <input
-                      type={type}
-                      name={name}
-                      placeholder={placeholder}
-                      required={required}
-                      style={{
-                        width: "100%",
-                        border: "1px solid #e1e5e8",
-                        borderRadius: 12,
-                        padding: 14,
-                        fontFamily: "inherit",
-                        outline: "none",
-                        background: "#fbfcfd",
-                      }}
-                    />
-                  </label>
-                ))}
-
-                <label style={{ display: "block" }}>
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: 11,
-                      fontWeight: 800,
-                      marginBottom: 7,
-                      color: "#556575",
-                    }}
-                  >
-                    SERVICE
-                  </span>
-
-                  <select
-                    name="choice"
-                    defaultValue=""
-                    required
-                    style={{
-                      width: "100%",
-                      border: "1px solid #e1e5e8",
-                      borderRadius: 12,
-                      padding: 14,
-                      fontFamily: "inherit",
-                      outline: "none",
-                      background: "#fbfcfd",
-                    }}
-                  >
-                    <option value="" disabled>
-                      Select a service
-                    </option>
-                    <option>Web Development</option>
-                    <option>UI/UX Design</option>
-                    <option>Digital Marketing</option>
-                    <option>Mobile Development</option>
-                    <option>Cloud Development</option>
-                    <option>Complete Digital Solution</option>
-                  </select>
-                </label>
-
-                <label
-                  style={{
-                    display: "block",
-                    gridColumn: "1/-1",
-                  }}
-                >
-                  <span
-                    style={{
-                      display: "block",
-                      fontSize: 11,
-                      fontWeight: 800,
-                      marginBottom: 7,
-                      color: "#556575",
-                    }}
-                  >
-                    PROJECT DETAILS
-                  </span>
-
-                  <textarea
-                    name="message"
-                    rows={5}
-                    placeholder="Tell us a little about your idea, goals or requirements..."
-                    required
-                    style={{
-                      width: "100%",
-                      border: "1px solid #e1e5e8",
-                      borderRadius: 12,
-                      padding: 14,
-                      fontFamily: "inherit",
-                      outline: "none",
-                      background: "#fbfcfd",
-                      resize: "vertical",
-                    }}
-                  />
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                disabled={formStatus === "sending"}
-                style={{
-                  ...button,
-                  width: "100%",
-                  marginTop: 8,
-                  background:
-                    formStatus === "sending"
-                      ? "#c7a35f"
-                      : "linear-gradient(135deg,#e6b85c,#c89032)",
-                  color: "#152536",
-                  opacity: formStatus === "sending" ? 0.8 : 1,
-                }}
-              >
-                {formStatus === "sending"
-                  ? "Sending..."
-                  : "Send Enquiry"}{" "}
-                <Icon type="arrow" size={17} />
-              </button>
-
-              {formStatus === "error" && (
-                <p
-                  style={{
-                    marginTop: 14,
-                    color: "#c0392b",
-                    fontSize: 13,
-                    textAlign: "center",
-                  }}
-                >
-                  Something went wrong — please try again.
-                </p>
+                    Please check that your form submission service is
+                    configured before publishing the website.
+                  </p>
+                </form>
               )}
-
-              <p
-                style={{
-                  marginTop: 12,
-                  fontSize: 11,
-                  color: "#888",
-                  textAlign: "right",
-                }}
-              >
-                Powered by{" "}
-                <a
-                  href="https://splitforms.com"
-                  target="_blank"
-                  rel="sponsored noopener"
-                  style={{
-                    color: "#888",
-                    textDecoration: "none",
-                  }}
-                >
-                  splitforms
-                </a>
-              </p>
-            </form>
-          )}
-        </div>
-      </section>
-
-      <Footer scrollTo={scrollTo} />
-
-
+            </div>
+          </div>
+        </section>
+      </main>
     </div>
   );
-}
+};
+
+export default Home;
