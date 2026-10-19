@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const [activeFaq, setActiveFaq] = useState(0);
@@ -19,39 +20,46 @@ const Home = () => {
     border: "#DCE7F5",
   };
 
+  // Service cards and their React Router paths
   const services = [
     {
       title: "Web Development",
+      path: "/services/web-development",
       image:
         "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=1000&q=85",
       color: colors.blue,
     },
     {
       title: "Mobile App Development",
+      path: "/services/mobile-development",
       image:
         "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1000&q=85",
       color: colors.cyan,
     },
     {
       title: "UI/UX Design",
+      path: "/services/ui-ux-design",
       image:
         "https://images.unsplash.com/photo-1559028012-481c04fa702d?auto=format&fit=crop&w=1000&q=85",
       color: colors.purple,
     },
     {
       title: "Digital Marketing",
+      path: "/services/digital-marketing",
       image:
         "https://images.unsplash.com/photo-1557838923-2985c318be48?auto=format&fit=crop&w=1000&q=85",
       color: colors.orange,
     },
     {
       title: "Logo & Branding",
+      path: "/services/logo-branding",
       image:
         "https://images.unsplash.com/photo-1634942536790-2536f7c1d4a7?auto=format&fit=crop&w=1000&q=85",
       color: colors.gold,
     },
     {
       title: "Cloud Deployment",
+      path: "/services/cloud-deployment",
       image:
         "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1000&q=85",
       color: colors.blue,
@@ -111,6 +119,7 @@ const Home = () => {
     ],
   ];
 
+  // Smooth scrolling for sections on the Home page
   const scrollTo = (id) => {
     document.getElementById(id)?.scrollIntoView({
       behavior: "smooth",
@@ -118,6 +127,7 @@ const Home = () => {
     });
   };
 
+  // Contact form submission
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -129,7 +139,9 @@ const Home = () => {
     try {
       const response = await fetch("https://splitforms.com/api/submit", {
         method: "POST",
-        headers: { Accept: "application/json" },
+        headers: {
+          Accept: "application/json",
+        },
         body: formData,
       });
 
@@ -139,7 +151,8 @@ const Home = () => {
 
       setFormStatus("success");
       form.reset();
-    } catch {
+    } catch (error) {
+      console.error("Contact form submission failed:", error);
       setFormStatus("error");
     }
   };
@@ -151,7 +164,7 @@ const Home = () => {
 
     html {
       scroll-behavior: smooth;
-      scroll-padding-top: 25px;
+      scroll-padding-top: 100px;
     }
 
     body {
@@ -177,6 +190,7 @@ const Home = () => {
 
     .vx-section {
       padding: 88px 0;
+      scroll-margin-top: 85px;
     }
 
     .vx-eyebrow {
@@ -259,7 +273,7 @@ const Home = () => {
       font-weight: 800;
       text-decoration: none;
       cursor: pointer;
-      transition: transform .25s ease, box-shadow .25s ease;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
     .vx-button:hover {
@@ -267,10 +281,16 @@ const Home = () => {
       box-shadow: 0 14px 30px rgba(18, 100, 216, 0.3);
     }
 
+    .vx-button:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
     .vx-button-outline {
       border: 1px solid #b9d5f6;
       color: ${colors.navy};
-      background: rgba(255, 255, 255, .75);
+      background: rgba(255, 255, 255, 0.75);
       box-shadow: none;
     }
 
@@ -288,12 +308,12 @@ const Home = () => {
       background:
         radial-gradient(
           circle at 82% 25%,
-          rgba(0, 200, 240, .19),
+          rgba(0, 200, 240, 0.19),
           transparent 28%
         ),
         radial-gradient(
           circle at 68% 85%,
-          rgba(129, 56, 216, .11),
+          rgba(129, 56, 216, 0.11),
           transparent 27%
         ),
         linear-gradient(120deg, #f8fbff, #e7f2ff);
@@ -306,11 +326,11 @@ const Home = () => {
       right: -100px;
       width: 480px;
       height: 480px;
-      border: 1px solid rgba(18, 100, 216, .13);
+      border: 1px solid rgba(18, 100, 216, 0.13);
       border-radius: 50%;
       box-shadow:
-        0 0 0 45px rgba(18, 100, 216, .035),
-        0 0 0 95px rgba(0, 200, 240, .025);
+        0 0 0 45px rgba(18, 100, 216, 0.035),
+        0 0 0 95px rgba(0, 200, 240, 0.025);
       pointer-events: none;
     }
 
@@ -318,7 +338,7 @@ const Home = () => {
       position: relative;
       z-index: 1;
       display: grid;
-      grid-template-columns: 1.05fr .95fr;
+      grid-template-columns: 1.05fr 0.95fr;
       align-items: center;
       gap: 50px;
     }
@@ -370,10 +390,10 @@ const Home = () => {
       display: block;
       width: 100%;
       height: 440px;
-      border: 7px solid rgba(255, 255, 255, .8);
+      border: 7px solid rgba(255, 255, 255, 0.8);
       border-radius: 30px 100px 30px 100px;
       object-fit: cover;
-      box-shadow: 0 28px 70px rgba(6, 35, 75, .18);
+      box-shadow: 0 28px 70px rgba(6, 35, 75, 0.18);
     }
 
     .vx-floating {
@@ -382,10 +402,10 @@ const Home = () => {
       align-items: center;
       gap: 12px;
       padding: 15px 18px;
-      border: 1px solid rgba(220, 235, 255, .8);
+      border: 1px solid rgba(220, 235, 255, 0.8);
       border-radius: 15px;
-      background: rgba(255, 255, 255, .96);
-      box-shadow: 0 15px 38px rgba(6, 35, 75, .13);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 15px 38px rgba(6, 35, 75, 0.13);
     }
 
     .vx-floating-icon {
@@ -476,7 +496,7 @@ const Home = () => {
       height: 470px;
       border-radius: 24px;
       object-fit: cover;
-      box-shadow: 18px 20px 55px rgba(6, 35, 75, .14);
+      box-shadow: 18px 20px 55px rgba(6, 35, 75, 0.14);
     }
 
     .vx-about-badge {
@@ -485,7 +505,7 @@ const Home = () => {
       bottom: 25px;
       width: 180px;
       padding: 22px;
-      border: 1px solid rgba(255, 255, 255, .2);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 18px;
       color: #fff;
       background: linear-gradient(
@@ -493,7 +513,7 @@ const Home = () => {
         ${colors.navy},
         ${colors.blue}
       );
-      box-shadow: 0 15px 35px rgba(6, 35, 75, .2);
+      box-shadow: 0 15px 35px rgba(6, 35, 75, 0.2);
       text-align: center;
     }
 
@@ -557,7 +577,7 @@ const Home = () => {
       background:
         radial-gradient(
           circle at 100% 0%,
-          rgba(0, 200, 240, .13),
+          rgba(0, 200, 240, 0.13),
           transparent 30%
         ),
         linear-gradient(135deg, ${colors.navy}, #0a2e5e);
@@ -588,7 +608,7 @@ const Home = () => {
       height: 260px;
       padding: 0;
       overflow: hidden;
-      border: 1px solid rgba(255, 255, 255, .14);
+      border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 18px;
       background: #102e53;
       cursor: pointer;
@@ -603,10 +623,10 @@ const Home = () => {
       inset: 0;
       background: linear-gradient(
         180deg,
-        rgba(4, 18, 42, .02) 20%,
-        rgba(4, 18, 42, .82) 100%
+        rgba(4, 18, 42, 0.02) 20%,
+        rgba(4, 18, 42, 0.82) 100%
       );
-      transition: background .25s ease;
+      transition: background 0.25s ease;
     }
 
     .vx-service-card img {
@@ -614,7 +634,7 @@ const Home = () => {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      transition: transform .45s ease;
+      transition: transform 0.45s ease;
     }
 
     .vx-service-card:hover img {
@@ -624,8 +644,8 @@ const Home = () => {
     .vx-service-card:hover::after {
       background: linear-gradient(
         180deg,
-        rgba(4, 18, 42, .03) 10%,
-        rgba(4, 18, 42, .94) 100%
+        rgba(4, 18, 42, 0.03) 10%,
+        rgba(4, 18, 42, 0.94) 100%
       );
     }
 
@@ -639,7 +659,7 @@ const Home = () => {
       font-size: 18px;
       font-weight: 800;
       text-align: left;
-      text-shadow: 0 2px 10px rgba(0, 0, 0, .35);
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.35);
     }
 
     .vx-service-name::after {
@@ -691,7 +711,7 @@ const Home = () => {
       place-items: center;
       border-radius: 12px;
       color: ${colors.cyan};
-      background: rgba(0, 200, 240, .12);
+      background: rgba(0, 200, 240, 0.12);
       font-size: 19px;
     }
 
@@ -715,7 +735,7 @@ const Home = () => {
       height: 510px;
       border-radius: 24px;
       object-fit: cover;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, .2);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
     }
 
     .vx-tech-grid {
@@ -738,13 +758,13 @@ const Home = () => {
       background: #fff;
       font-size: 13px;
       font-weight: 750;
-      transition: transform .2s, border-color .2s, box-shadow .2s;
+      transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
     }
 
     .vx-tech:hover {
       transform: translateY(-3px);
       border-color: ${colors.cyan};
-      box-shadow: 0 9px 22px rgba(18, 100, 216, .08);
+      box-shadow: 0 9px 22px rgba(18, 100, 216, 0.08);
     }
 
     .vx-tech span {
@@ -769,12 +789,12 @@ const Home = () => {
       border: 1px solid #d8e7fa;
       border-radius: 17px;
       background: #fff;
-      transition: transform .25s, box-shadow .25s;
+      transition: transform 0.25s, box-shadow 0.25s;
     }
 
     .vx-process-card:hover {
       transform: translateY(-5px);
-      box-shadow: 0 14px 32px rgba(6, 35, 75, .09);
+      box-shadow: 0 14px 32px rgba(6, 35, 75, 0.09);
     }
 
     .vx-process-number {
@@ -851,13 +871,13 @@ const Home = () => {
       border-radius: 18px;
       object-fit: cover;
       background: #e0ebf9;
-      box-shadow: 0 10px 28px rgba(6, 35, 75, .08);
-      transition: transform .3s ease, box-shadow .3s ease;
+      box-shadow: 0 10px 28px rgba(6, 35, 75, 0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
 
     .vx-project-image:hover {
       transform: translateY(-5px);
-      box-shadow: 0 17px 36px rgba(6, 35, 75, .15);
+      box-shadow: 0 17px 36px rgba(6, 35, 75, 0.15);
     }
 
     .vx-testimonials-section {
@@ -964,7 +984,7 @@ const Home = () => {
       background:
         radial-gradient(
           circle at 90% 10%,
-          rgba(0, 200, 240, .16),
+          rgba(0, 200, 240, 0.16),
           transparent 30%
         ),
         linear-gradient(125deg, ${colors.navy}, #0b3970);
@@ -972,7 +992,7 @@ const Home = () => {
 
     .vx-contact-grid {
       display: grid;
-      grid-template-columns: .9fr 1.1fr;
+      grid-template-columns: 0.9fr 1.1fr;
       align-items: start;
       gap: 55px;
     }
@@ -1001,11 +1021,11 @@ const Home = () => {
 
     .vx-contact-form {
       padding: 30px;
-      border: 1px solid rgba(255, 255, 255, .3);
+      border: 1px solid rgba(255, 255, 255, 0.3);
       border-radius: 22px;
       color: ${colors.navy};
       background: #fff;
-      box-shadow: 0 25px 60px rgba(0, 0, 0, .18);
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.18);
     }
 
     .vx-contact-form h3 {
@@ -1052,14 +1072,14 @@ const Home = () => {
       background: #f8fbff;
       font-family: inherit;
       font-size: 13px;
-      transition: border-color .2s, box-shadow .2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .vx-field input:focus,
     .vx-field select:focus,
     .vx-field textarea:focus {
       border-color: ${colors.blue};
-      box-shadow: 0 0 0 3px rgba(18, 100, 216, .1);
+      box-shadow: 0 0 0 3px rgba(18, 100, 216, 0.1);
     }
 
     .vx-field textarea {
@@ -1314,8 +1334,8 @@ const Home = () => {
       .vx-home *::before,
       .vx-home *::after {
         scroll-behavior: auto !important;
-        animation-duration: .01ms !important;
-        transition-duration: .01ms !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
       }
     }
   `;
@@ -1325,7 +1345,7 @@ const Home = () => {
       <style>{styles}</style>
 
       <main>
-        {/* HERO */}
+        {/* HERO SECTION */}
         <section id="home" className="vx-hero">
           <div className="vx-container vx-hero-grid">
             <div>
@@ -1348,13 +1368,9 @@ const Home = () => {
               </p>
 
               <div className="vx-hero-actions">
-                <button
-                  className="vx-button"
-                  type="button"
-                  onClick={() => scrollTo("contact")}
-                >
+                <Link className="vx-button" to="/about">
                   Start Your Journey <span>↗</span>
-                </button>
+                </Link>
 
                 <button
                   className="vx-button vx-button-outline"
@@ -1404,19 +1420,22 @@ const Home = () => {
             <div className="vx-trust-item">
               <span>✦</span> Innovative Solutions
             </div>
+
             <div className="vx-trust-item">
               <span>✓</span> Quality Focused
             </div>
+
             <div className="vx-trust-item">
               <span>◇</span> Modern Technology
             </div>
+
             <div className="vx-trust-item">
               <span>↗</span> Growth Mindset
             </div>
           </div>
         </section>
 
-        {/* ABOUT */}
+        {/* ABOUT SECTION */}
         <section id="about" className="vx-section">
           <div className="vx-container vx-about-grid">
             <div className="vx-about-image-wrap">
@@ -1428,7 +1447,7 @@ const Home = () => {
               />
 
               <div className="vx-about-badge">
-              
+                <strong>VTX</strong>
                 <span>Digital thinking from strategy to scale</span>
               </div>
             </div>
@@ -1458,37 +1477,41 @@ const Home = () => {
               <div className="vx-value-grid">
                 <div className="vx-value">
                   <strong>Human First</strong>
-                  <span>We design around real people and real problems.</span>
+                  <span>
+                    We design around real people and real problems.
+                  </span>
                 </div>
 
                 <div className="vx-value">
                   <strong>Quality Always</strong>
-                  <span>Every detail matters from concept to launch.</span>
+                  <span>
+                    Every detail matters from concept to launch.
+                  </span>
                 </div>
 
                 <div className="vx-value">
                   <strong>Think Long Term</strong>
-                  <span>We build solutions that can evolve with you.</span>
+                  <span>
+                    We build solutions that can evolve with you.
+                  </span>
                 </div>
 
                 <div className="vx-value">
                   <strong>Move With Purpose</strong>
-                  <span>Clear priorities create meaningful progress.</span>
+                  <span>
+                    Clear priorities create meaningful progress.
+                  </span>
                 </div>
               </div>
 
-              <button
-                className="vx-button"
-                type="button"
-                onClick={() => scrollTo("contact")}
-              >
+              <Link className="vx-button" to="/contact">
                 Work With Us <span>↗</span>
-              </button>
+              </Link>
             </div>
           </div>
         </section>
 
-        {/* SERVICES - IMAGE-FOCUSED CARDS */}
+        {/* SERVICES SECTION */}
         <section
           id="services"
           className="vx-section vx-services-section"
@@ -1511,11 +1534,11 @@ const Home = () => {
 
             <div className="vx-services-grid">
               {services.map((service) => (
-                <a
+                <Link
                   key={service.title}
-                  href="#contact"
+                  to={service.path}
                   className="vx-service-card"
-                  aria-label={`Enquire about ${service.title}`}
+                  aria-label={`Learn more about ${service.title}`}
                 >
                   <img
                     src={service.image}
@@ -1526,7 +1549,7 @@ const Home = () => {
                   <span className="vx-service-name">
                     {service.title}
                   </span>
-                </a>
+                </Link>
               ))}
             </div>
           </div>
@@ -1596,7 +1619,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* TECHNOLOGY */}
+        {/* TECHNOLOGY STACK */}
         <section id="technology" className="vx-section">
           <div className="vx-container">
             <div className="vx-title">
@@ -1625,7 +1648,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* PROCESS */}
+        {/* DEVELOPMENT PROCESS */}
         <section id="process" className="vx-section vx-process-section">
           <div className="vx-container">
             <div className="vx-title">
@@ -1655,11 +1678,11 @@ const Home = () => {
           </div>
         </section>
 
-        {/* STATS */}
+        {/* STATISTICS */}
         <section className="vx-stats">
           <div className="vx-container vx-stats-grid">
             {[
-              ["20+","Projects"],
+              ["20+", "Projects"],
               ["6+", "Core Service Areas"],
               ["24/7", "Digital Possibilities"],
               ["100%", "Commitment to Quality"],
@@ -1672,7 +1695,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* PROJECT GALLERY - IMAGE ONLY */}
+        {/* PROJECT GALLERY */}
         <section id="projects" className="vx-section">
           <div className="vx-container">
             <div className="vx-title">
@@ -1772,11 +1795,13 @@ const Home = () => {
           </div>
         </section>
 
-        {/* FAQ */}
+        {/* FAQ SECTION */}
         <section id="faq" className="vx-section">
           <div className="vx-container">
             <div className="vx-title">
-              <div className="vx-eyebrow">Frequently Asked Questions</div>
+              <div className="vx-eyebrow">
+                Frequently Asked Questions
+              </div>
 
               <h2>Questions before we begin?</h2>
 
@@ -1809,7 +1834,7 @@ const Home = () => {
           </div>
         </section>
 
-        {/* CONTACT */}
+        {/* CONTACT SECTION */}
         <section id="contact" className="vx-section vx-contact-section">
           <div className="vx-container vx-contact-grid">
             <div className="vx-contact-copy">
@@ -1842,6 +1867,7 @@ const Home = () => {
                 <div className="vx-form-success">
                   <span>✓</span>
                   <h3>Thank You!</h3>
+
                   <p>
                     Your message was submitted successfully. Our team
                     will get back to you.
@@ -1865,6 +1891,7 @@ const Home = () => {
                   <div className="vx-form-grid">
                     <label className="vx-field">
                       <span>YOUR NAME</span>
+
                       <input
                         type="text"
                         name="name"
@@ -1876,6 +1903,7 @@ const Home = () => {
 
                     <label className="vx-field">
                       <span>EMAIL ADDRESS</span>
+
                       <input
                         type="email"
                         name="email"
@@ -1887,6 +1915,7 @@ const Home = () => {
 
                     <label className="vx-field">
                       <span>PHONE NUMBER</span>
+
                       <input
                         type="tel"
                         name="phone"
@@ -1897,10 +1926,12 @@ const Home = () => {
 
                     <label className="vx-field">
                       <span>SERVICE</span>
+
                       <select name="choice" defaultValue="" required>
                         <option value="" disabled>
                           Select a service
                         </option>
+
                         <option>Web Development</option>
                         <option>Mobile App Development</option>
                         <option>UI/UX Design</option>
@@ -1913,6 +1944,7 @@ const Home = () => {
 
                     <label className="vx-field vx-field-full">
                       <span>PROJECT DETAILS</span>
+
                       <textarea
                         name="message"
                         rows={5}
@@ -1930,6 +1962,7 @@ const Home = () => {
                     {formStatus === "sending"
                       ? "Sending..."
                       : "Send Enquiry"}
+
                     <span>↗</span>
                   </button>
 
@@ -1940,6 +1973,7 @@ const Home = () => {
                       role="alert"
                     >
                       Unable to submit your enquiry. Please try again.
+                      Check that your form submission service is configured.
                     </p>
                   )}
 
@@ -1951,8 +1985,8 @@ const Home = () => {
                       textAlign: "center",
                     }}
                   >
-                    Please check that your form submission service is
-                    configured before publishing the website.
+                    Your enquiry will be processed through the configured
+                    form submission service.
                   </p>
                 </form>
               )}

@@ -1,1143 +1,630 @@
-
 import React from "react";
+import { Link } from "react-router-dom";
 
-const services = [
+const floatingBadges = [
+  { icon: "💻", label: "Modern Tech", top: "15%", left: "-10%" },
+  { icon: "🚀", label: "Scalable Solutions", top: "20%", right: "-15%" },
+  { icon: "⚙️", label: "Agile Delivery", bottom: "25%", left: "-5%" },
+  { icon: "🛡️", label: "Secure Architecture", bottom: "35%", right: "-10%" },
+];
+
+const coreInfo = [
   {
-    number: "01",
-    title: "Web Development",
-    description:
-      "Modern, responsive and high-performance websites built to grow your business.",
-    icon: "〈/〉",
+    title: "Our Purpose",
+    desc: "To empower businesses with cutting-edge digital solutions and help them achieve long-term growth.",
+    icon: "🎯",
     color: "blue",
-    tags: ["React.js", "Node.js", "Web Apps"],
   },
   {
-    number: "02",
-    title: "Mobile App Development",
-    description:
-      "Powerful Android and iOS applications with seamless user experiences.",
-    icon: "▣",
-    color: "pink",
-    tags: ["Android", "iOS", "React Native"],
-  },
-  {
-    number: "03",
-    title: "Digital Marketing",
-    description:
-      "Reach more customers with SEO, social media and performance marketing.",
-    icon: "↗",
-    color: "orange",
-    tags: ["SEO", "Social Media", "Ads"],
-  },
-  {
-    number: "04",
-    title: "Logo & Branding",
-    description:
-      "Create a memorable identity with distinctive logos and brand visuals.",
-    icon: "✎",
+    title: "Our Approach",
+    desc: "Collaborative planning, modern engineering, and transparent, agile delivery.",
+    icon: "👁️",
     color: "green",
-    tags: ["Logo Design", "Branding", "Creative"],
   },
   {
-    number: "05",
-    title: "UI/UX Design",
-    description:
-      "Beautiful interfaces and intuitive user journeys designed for people.",
-    icon: "▦",
-    color: "purple",
-    tags: ["UI Design", "UX Research", "Prototypes"],
+    title: "Our Clients",
+    desc: "From ambitious startups to established enterprises, we support businesses globally.",
+    icon: "👥",
+    color: "orange",
+  },
+  {
+    title: "Our Impact",
+    desc: "Creating scalable, high-performance applications that drive true digital transformation.",
+    icon: "🏆",
+    color: "pink",
+  },
+];
+
+const missionVisionValues = [
+  {
+    title: "Our Mission",
+    desc: "To deliver high-quality, result-driven IT services that create value and help our clients achieve their business goals.",
+    icon: "🎯",
+  },
+  {
+    title: "Our Vision",
+    desc: "To be a trusted global technology partner known for innovation, reliability, and technical excellence.",
+    icon: "👁️",
+  },
+  {
+    title: "Our Values",
+    desc: "Integrity, Innovation, Client Focus, Excellence, and Continuous Growth.",
+    icon: "💎",
   },
 ];
 
 const stats = [
-  { number: "100+", label: "Happy Clients", icon: "♧", color: "blue" },
-  { number: "200+", label: "Projects Delivered", icon: "▤", color: "teal" },
-  { number: "4.8/5", label: "Client Satisfaction", icon: "☆", color: "gold" },
-  { number: "5+", label: "Years of Experience", icon: "♜", color: "green" },
+  { number: "100+", label: "Happy Clients", icon: "👥" },
+  { number: "200+", label: "Projects Delivered", icon: "🚀" },
+  { number: "5+", label: "Years Experience", icon: "⏳" },
+  { number: "24/7", label: "Dedicated Support", icon: "💼" },
+  { number: "4.8/5", label: "Client Satisfaction", icon: "⭐" },
 ];
 
-const values = [
-  { icon: "♧", label: "Integrity" },
-  { icon: "✧", label: "Innovation" },
-  { icon: "⇄", label: "Client Focus" },
-  { icon: "▥", label: "Excellence" },
-  { icon: "♡", label: "Growth Together" },
+const locations = [
+  {
+    city: "Bangalore",
+    country: "India",
+    address: "Tech Hub, Electronic City, Bangalore, Karnataka",
+    icon: "🇮🇳",
+  },
+  {
+    city: "Addis Ababa",
+    country: "Ethiopia",
+    address: "Bole Sub-City, Addis Ababa, Ethiopia",
+    icon: "🇪🇹",
+  },
 ];
 
 export default function About() {
   return (
-    <main className="vighnex-about">
+    <main className="vx-about">
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
 
-        .vighnex-about {
-          --teal: #008b88;
-          --green: #08c998;
-          --navy: #101b3b;
-          --text: #505768;
-          --muted: #737b89;
-          font-family: 'DM Sans', sans-serif;
-          color: var(--navy);
-          background: #fff;
+        .vx-about {
+          --primary-blue: #0b2545;
+          --gradient-blue: linear-gradient(135deg, #0b2545 0%, #133c7a 50%, #1e81b0 100%);
+          --accent-cyan: #00c8f0;
+          --text-main: #334155;
+          --text-muted: #64748b;
+          --bg-light: #f8fafc;
+          
+          font-family: 'Plus Jakarta Sans', sans-serif;
+          color: var(--text-main);
+          background: var(--bg-light);
           width: 100%;
           overflow: hidden;
         }
 
-        .vighnex-about *,
-        .vighnex-about *::before,
-        .vighnex-about *::after {
+        .vx-about *, .vx-about *::before, .vx-about *::after {
           box-sizing: border-box;
         }
 
-        .vighnex-about a {
-          text-decoration: none;
+        h1, h2, h3, h4 {
+          font-family: 'Outfit', sans-serif;
+          margin: 0;
         }
 
-        .va-container {
-          width: min(1420px, calc(100% - 64px));
+        .vx-container {
+          width: min(1280px, calc(100% - 48px));
           margin: 0 auto;
+          padding: 60px 0;
         }
 
-        .va-hero {
+        /* --- HERO SECTION --- */
+        .vx-hero-wrapper {
+          background: linear-gradient(135deg, rgba(11, 37, 69, 0.9) 0%, rgba(19, 60, 122, 0.85) 50%, rgba(30, 129, 176, 0.8) 100%), 
+                      url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+          color: white;
+          padding: 80px 0;
           position: relative;
-          padding: 45px 0 0;
-          isolation: isolate;
+          overflow: hidden;
         }
 
-        .va-hero::before {
-          content: "";
-          position: absolute;
-          z-index: -1;
-          width: 470px;
-          height: 470px;
-          top: -180px;
-          right: -160px;
-          border-radius: 50%;
-          background: radial-gradient(
-            circle,
-            rgba(8,201,152,.15),
-            transparent 70%
-          );
-        }
-
-        .va-hero-grid {
+        .vx-hero-grid {
           display: grid;
-          grid-template-columns: .88fr 1.12fr;
+          grid-template-columns: 1fr 1fr;
           align-items: center;
-          gap: 30px;
+          gap: 40px;
+          position: relative;
+          z-index: 2;
         }
 
-        .va-eyebrow {
-          display: flex;
-          align-items: center;
-          gap: 9px;
-          margin-bottom: 17px;
-          color: #007e7c;
-          font-size: 12px;
+        .vx-hero-content h1 {
+          font-size: clamp(40px, 5vw, 64px);
           font-weight: 800;
-          text-transform: uppercase;
-          letter-spacing: 2px;
+          line-height: 1.1;
+          margin-bottom: 12px;
         }
 
-        .va-eyebrow::before {
-          content: "";
-          height: 3px;
-          width: 11px;
-          border-radius: 4px;
-          background: var(--green);
+        .vx-hero-subtitle {
+          font-size: 22px;
+          font-weight: 600;
+          margin-bottom: 24px;
+          color: var(--accent-cyan);
         }
 
-        .va-hero h1 {
-          margin: 0 0 20px;
-          font-family: 'Manrope', sans-serif;
-          font-size: clamp(43px, 5vw, 68px);
-          line-height: 1.04;
-          letter-spacing: -2.8px;
-          font-weight: 800;
+        .vx-hero-content p {
+          font-size: 16px;
+          line-height: 1.6;
+          color: #e2e8f0;
+          margin-bottom: 32px;
+          max-width: 540px;
         }
 
-        .va-gradient {
-          color: transparent;
-          background: linear-gradient(100deg, #008986, #08bd9b);
-          background-clip: text;
-          -webkit-background-clip: text;
-        }
-
-        .va-hero-copy > p {
-          max-width: 530px;
-          margin: 0 0 24px;
-          color: var(--text);
-          font-size: 15px;
-          line-height: 1.85;
-        }
-
-        .va-actions {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 12px;
-        }
-
-        .va-btn {
+        .vx-btn-cyan {
           display: inline-flex;
           align-items: center;
-          justify-content: center;
-          gap: 12px;
-          padding: 14px 22px;
-          border-radius: 100px;
-          font-size: 13px;
+          gap: 10px;
+          background: var(--accent-cyan);
+          color: #000;
+          padding: 14px 28px;
+          border-radius: 50px;
           font-weight: 700;
-          transition: .25s ease;
+          text-decoration: none;
+          transition: transform 0.2s, box-shadow 0.2s;
         }
 
-        .va-btn:hover {
-          transform: translateY(-3px);
+        .vx-btn-cyan:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 10px 20px rgba(0, 200, 240, 0.3);
         }
 
-        .va-btn-primary {
-          color: #fff;
-          background: linear-gradient(110deg, #008987, #08c998);
-          box-shadow: 0 9px 22px rgba(0,153,139,.18);
-        }
-
-        .va-btn-outline {
-          color: var(--teal);
-          border: 1px solid var(--teal);
-          background: white;
-        }
-
-        .va-arrow {
-          font-size: 19px;
-          line-height: 1;
-        }
-
-        /* HERO IMAGE */
-
-        .va-visual {
-          height: 365px;
-          min-width: 0;
+        .vx-hero-visual {
           position: relative;
-        }
-
-        .va-visual::before {
-          content: "";
-          position: absolute;
-          inset: -12px 18px 12px -12px;
-          background: linear-gradient(140deg, #09d2a4, #007d88);
-          border-radius: 44% 12% 37% 12%;
-          transform: rotate(-3deg);
-        }
-
-        .va-hero-image {
-          position: relative;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          border: 5px solid #fff;
-          border-radius: 45% 12% 36% 12%;
-          box-shadow: 0 20px 55px rgba(8,60,75,.15);
-        }
-
-        .va-image-note {
-          position: absolute;
-          z-index: 2;
-          bottom: 15px;
-          right: -12px;
           display: flex;
-          align-items: center;
-          gap: 12px;
-          max-width: 270px;
-          padding: 15px 18px;
-          border: 1px solid #e6f6f2;
-          border-radius: 17px;
-          background: rgba(255,255,255,.96);
-          box-shadow: 0 12px 35px rgba(16,27,59,.12);
+          justify-content: center;
         }
 
-        .va-note-icon {
-          display: grid;
-          place-items: center;
-          width: 45px;
-          height: 45px;
-          flex-shrink: 0;
-          border-radius: 50%;
-          background: #ddfaf1;
-          color: #008b88;
-          font-size: 27px;
+        .vx-hero-blob {
+          position: absolute;
+          width: 400px;
+          height: 400px;
+          background: rgba(0, 200, 240, 0.2);
+          border: 2px solid var(--accent-cyan);
+          border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+          z-index: 0;
+          animation: morph 8s ease-in-out infinite;
         }
 
-        .va-image-note strong {
-          font-size: 12px;
-          line-height: 1.6;
+        @keyframes morph {
+          0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; }
+          34% { border-radius: 70% 30% 50% 50% / 30% 30% 70% 70%; }
+          67% { border-radius: 100% 60% 60% 100% / 100% 100% 60% 60%; }
         }
 
-        .va-floating {
+        .vx-hero-image {
+          position: relative;
+          z-index: 1;
+          max-height: 450px;
+          object-fit: contain;
+          border-radius: 24px;
+        }
+
+        .vx-floating-badge {
           position: absolute;
           z-index: 3;
-          top: 15px;
-          left: -18px;
-          padding: 12px 15px;
+          background: rgba(255, 255, 255, 0.1);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255,255,255,0.2);
+          padding: 12px 20px;
           border-radius: 12px;
-          background: white;
-          color: #008b88;
-          box-shadow: 0 8px 25px #10203012;
-          font-size: 12px;
-          font-weight: 700;
-        }
-
-        /* STATS */
-
-        .va-stats {
-          display: grid;
-          grid-template-columns: repeat(4, minmax(0, 1fr));
-          gap: 10px;
-          margin-top: 34px;
-          padding: 24px 15px;
-          border: 1px solid #eaf3f6;
-          border-radius: 24px;
-          background: linear-gradient(110deg, #f0f8fc, #effbf8);
-        }
-
-        .va-stat {
           display: flex;
-          justify-content: center;
           align-items: center;
-          gap: 13px;
-          min-width: 0;
-          border-right: 1px solid #dce9eb;
+          gap: 12px;
+          color: white;
+          font-size: 14px;
+          font-weight: 600;
+          box-shadow: 0 10px 25px rgba(0,0,0,0.1);
         }
-
-        .va-stat:last-child {
-          border-right: 0;
-        }
-
-        .va-stat-icon {
-          font-size: 36px;
-          line-height: 1;
-        }
-
-        .va-stat-icon.blue { color: #1685ef; }
-        .va-stat-icon.teal { color: #00a89b; }
-        .va-stat-icon.gold { color: #f5a300; }
-        .va-stat-icon.green { color: #10b96b; }
-
-        .va-stat strong {
-          display: block;
-          font-family: 'Manrope', sans-serif;
-          font-size: 25px;
-          font-weight: 800;
-        }
-
-        .va-stat span {
-          display: block;
-          margin-top: 4px;
-          color: var(--text);
-          font-size: 12px;
-        }
-
-        /* ABOUT SECTION */
-
-        .va-about-grid {
-          display: grid;
-          grid-template-columns: .92fr 1.08fr 1.08fr;
-          align-items: center;
-          gap: 30px;
-          padding: 65px 0 55px;
-        }
-
-        .va-heading {
-          margin: 0 0 15px;
-          font-family: 'Manrope', sans-serif;
-          font-size: clamp(29px, 3vw, 40px);
-          font-weight: 800;
-          line-height: 1.17;
-          letter-spacing: -1.3px;
-        }
-
-        .va-underline {
-          width: 40px;
-          height: 3px;
-          margin-bottom: 18px;
-          border-radius: 4px;
-          background: var(--green);
-        }
-
-        .va-about-copy p {
-          margin: 0 0 22px;
-          color: var(--text);
-          font-size: 13px;
-          line-height: 1.9;
-        }
-
-        .va-team {
-          position: relative;
-          padding: 12px;
-          min-width: 0;
-        }
-
-        .va-team::before {
-          content: "";
-          position: absolute;
-          inset: 0;
-          border-radius: 44% 30% 42% 30%;
-          background: #e6f9f5;
-          transform: rotate(-4deg);
-        }
-
-        .va-team img {
-          position: relative;
-          width: 100%;
-          height: 280px;
-          object-fit: cover;
-          border: 5px solid white;
-          border-radius: 43% 27% 38% 30%;
-        }
-
-        .va-team-badge {
-          position: absolute;
-          bottom: 3px;
-          left: -10px;
-          z-index: 2;
+        
+        .vx-floating-badge span {
+          background: rgba(255,255,255,0.2);
+          width: 32px;
+          height: 32px;
           display: grid;
           place-items: center;
-          width: 100px;
-          height: 100px;
-          padding: 12px;
-          border: 4px solid white;
-          border-radius: 50%;
-          background: linear-gradient(140deg, #00bda2, #007b7b);
-          color: white;
-          font-size: 11px;
-          font-weight: 700;
-          line-height: 1.55;
-          text-align: center;
-          transform: rotate(-8deg);
+          border-radius: 8px;
         }
 
-        .va-right h3 {
-          margin: 0 0 14px;
-          font-family: 'Manrope', sans-serif;
-          font-size: 22px;
-          font-weight: 800;
-        }
-
-        .va-vision-grid {
+        /* --- CORE INFO CARDS --- */
+        .vx-core-grid {
           display: grid;
-          grid-template-columns: repeat(2, minmax(0,1fr));
-          gap: 10px;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 20px;
+          margin-top: -40px;
+          position: relative;
+          z-index: 10;
+          padding: 0 24px;
         }
 
-        .va-vision-card {
-          padding: 15px 12px;
-          border: 1px solid #e3f2f2;
+        .vx-core-card {
+          background: white;
+          padding: 24px;
           border-radius: 16px;
-          background: #fff;
-          box-shadow: 0 5px 22px rgba(0,120,110,.035);
+          box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+          transition: transform 0.3s;
+        }
+        
+        .vx-core-card:hover {
+          transform: translateY(-5px);
         }
 
-        .va-vision-icon {
+        .vx-core-icon {
+          width: 50px;
+          height: 50px;
+          border-radius: 50%;
           display: grid;
           place-items: center;
-          width: 42px;
-          height: 42px;
-          margin-bottom: 12px;
-          border-radius: 50%;
-          background: linear-gradient(140deg, #45baff, #087ff3);
-          color: white;
           font-size: 24px;
+          margin-bottom: 16px;
         }
 
-        .va-vision-icon.mission {
-          background: linear-gradient(140deg, #18e2a4, #00a878);
+        .vx-core-card h3 {
+          font-size: 18px;
+          margin-bottom: 8px;
+          color: #0f172a;
         }
 
-        .va-vision-card h4 {
-          margin: 0 0 7px;
-          font-family: 'Manrope', sans-serif;
+        .vx-core-card p {
           font-size: 13px;
-          font-weight: 800;
+          color: var(--text-muted);
+          line-height: 1.6;
+          margin: 0;
         }
 
-        .va-vision-card p {
-          margin: 0;
-          color: var(--text);
-          font-size: 11px;
+        /* --- MISSION & VISION --- */
+        .vx-mission-wrapper {
+          display: grid;
+          grid-template-columns: 1fr 2fr;
+          gap: 40px;
+          align-items: center;
+        }
+
+        .vx-mission-intro h2 {
+          font-size: 32px;
+          color: #0f172a;
+          margin-bottom: 16px;
+        }
+
+        .vx-mission-intro h2 span {
+          color: #1e81b0;
+        }
+
+        .vx-mission-intro p {
+          font-size: 14px;
+          color: var(--text-muted);
           line-height: 1.7;
         }
 
-        .va-values-heading {
-          margin: 20px 0 13px;
-          font-family: 'Manrope', sans-serif;
-          font-size: 14px;
-          font-weight: 800;
-        }
-
-        .va-values {
+        .vx-mission-grid {
           display: grid;
-          grid-template-columns: repeat(5, minmax(0,1fr));
-          gap: 7px;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 20px;
         }
 
-        .va-value {
-          min-width: 0;
+        .vx-mvv-card {
+          background: white;
+          padding: 24px;
+          border-radius: 16px;
+          border: 1px solid #e2e8f0;
           text-align: center;
         }
 
-        .va-value b {
-          display: block;
-          margin-bottom: 5px;
-          color: #00a99a;
-          font-size: 25px;
-        }
-
-        .va-value span {
-          display: block;
-          color: var(--text);
-          font-size: 10px;
-          line-height: 1.4;
-        }
-
-        /* SERVICES */
-
-        .va-services {
-          padding: 28px 23px 24px;
-          margin-bottom: 65px;
-          border-radius: 25px;
-          background:
-            radial-gradient(ellipse at 5% 0%, rgba(4,201,158,.09), transparent 35%),
-            linear-gradient(135deg,#f0fbfa,#f7fcfd);
-        }
-
-        .va-services-head {
-          margin: 0 0 20px 4px;
-        }
-
-        .va-services-head .va-heading {
-          margin-bottom: 9px;
-        }
-
-        .va-services-head p {
-          margin: 0;
-          color: var(--muted);
-          font-size: 13px;
-        }
-
-        .va-service-grid {
-          display: grid;
-          grid-template-columns: repeat(5, minmax(0,1fr));
-          gap: 12px;
-        }
-
-        .va-service {
-          position: relative;
-          min-width: 0;
-          padding: 20px 16px;
-          overflow: hidden;
-          border: 1px solid #e8f2f1;
-          border-radius: 18px;
-          background: rgba(255,255,255,.96);
-          transition: transform .25s, box-shadow .25s;
-        }
-
-        .va-service:hover {
-          transform: translateY(-6px);
-          box-shadow: 0 15px 30px rgba(10,83,92,.09);
-        }
-
-        .va-service-top {
-          display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-bottom: 16px;
-        }
-
-        .va-service-icon {
-          display: grid;
-          place-items: center;
-          width: 53px;
-          height: 53px;
-          flex-shrink: 0;
-          border-radius: 50%;
-          color: white;
-          font-size: 24px;
-          font-weight: 700;
-          box-shadow: 0 7px 17px #00000012;
-        }
-
-        .va-service-icon.blue { background: linear-gradient(140deg,#2eb9ff,#0067f5); }
-        .va-service-icon.pink { background: linear-gradient(140deg,#ff38b7,#df00a2); }
-        .va-service-icon.orange { background: linear-gradient(140deg,#ff9a2c,#f14a00); }
-        .va-service-icon.green { background: linear-gradient(140deg,#53df5c,#09ad42); }
-        .va-service-icon.purple { background: linear-gradient(140deg,#bb53ff,#7100ef); }
-
-        .va-number {
-          align-self: flex-start;
-          margin-left: auto;
-          color: #c4d3d7;
-          font-family: 'Manrope', sans-serif;
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        .va-service h3 {
-          margin: 0 0 10px;
-          font-family: 'Manrope', sans-serif;
-          font-size: 14px;
-          line-height: 1.5;
-          font-weight: 800;
-        }
-
-        .va-service p {
-          min-height: 63px;
-          margin: 0 0 15px;
-          color: var(--text);
-          font-size: 12px;
-          line-height: 1.75;
-        }
-
-        .va-tags {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 5px;
-          margin-bottom: 16px;
-        }
-
-        .va-tags span {
-          padding: 4px 6px;
-          border-radius: 5px;
-          background: #eff8f7;
-          color: #287d79;
-          font-size: 9px;
-          font-weight: 600;
-        }
-
-        .va-service a {
-          display: inline-flex;
-          align-items: center;
-          gap: 6px;
-          color: var(--teal);
-          font-size: 12px;
-          font-weight: 800;
-        }
-
-        /* CTA */
-
-        .va-cta {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          gap: 25px;
-          padding: 38px 42px;
-          margin-bottom: 45px;
-          border-radius: 25px;
-          background: linear-gradient(115deg, #073d4c, #007f80 60%, #06b78c);
-          color: white;
-        }
-
-        .va-cta .va-eyebrow {
-          color: #a9ffeb;
+        .vx-mvv-card .icon {
+          font-size: 32px;
           margin-bottom: 12px;
         }
 
-        .va-cta h2 {
-          max-width: 700px;
-          margin: 0 0 12px;
-          font-family: 'Manrope', sans-serif;
-          font-size: clamp(25px, 3vw, 37px);
-          line-height: 1.25;
-          letter-spacing: -1px;
+        .vx-mvv-card h4 {
+          font-size: 16px;
+          margin-bottom: 10px;
         }
 
-        .va-cta p {
-          max-width: 650px;
+        .vx-mvv-card p {
+          font-size: 12px;
+          color: var(--text-muted);
+          line-height: 1.6;
           margin: 0;
-          color: #e0f5f1;
-          font-size: 13px;
-          line-height: 1.8;
         }
 
-        .va-cta .va-btn {
-          flex-shrink: 0;
-          color: #007d78;
+        /* --- STATS BANNER --- */
+        .vx-stats-banner {
+          background: var(--primary-blue);
+          border-radius: 16px;
+          padding: 30px;
+          display: grid;
+          grid-template-columns: repeat(5, 1fr);
+          gap: 20px;
+          color: white;
+          margin: 40px auto;
+        }
+
+        .vx-stat-item {
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          justify-content: center;
+          border-right: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .vx-stat-item:last-child {
+          border-right: none;
+        }
+
+        .vx-stat-item .icon {
+          background: rgba(255,255,255,0.1);
+          width: 45px;
+          height: 45px;
+          border-radius: 50%;
+          display: grid;
+          place-items: center;
+          font-size: 20px;
+        }
+
+        .vx-stat-item .icon.cyan {
+          background: var(--accent-cyan);
+          color: #000;
+        }
+
+        .vx-stat-info strong {
+          display: block;
+          font-family: 'Outfit', sans-serif;
+          font-size: 24px;
+          font-weight: 700;
+        }
+
+        .vx-stat-info span {
+          font-size: 12px;
+          color: #cbd5e1;
+        }
+
+        /* --- FULL WIDTH CTA --- */
+        .vx-cta-banner {
+          background: #e0f2fe;
+          padding: 40px 60px;
+          border-radius: 16px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 20px;
+        }
+
+        .vx-cta-content h3 {
+          font-size: 28px;
+          margin-bottom: 12px;
+          color: #0c4a6e;
+        }
+
+        .vx-cta-content p {
+          font-size: 15px;
+          color: #0369a1;
+          margin: 0;
+          line-height: 1.6;
+          max-width: 600px;
+        }
+
+        .vx-btn-blue {
+          background: #0284c7;
+          color: white;
+          padding: 14px 28px;
+          border-radius: 8px;
+          text-decoration: none;
+          font-size: 15px;
+          font-weight: 600;
+          transition: background 0.2s;
+          white-space: nowrap;
+        }
+
+        .vx-btn-blue:hover {
+          background: #0369a1;
+        }
+
+        /* --- LOCATIONS --- */
+        .vx-locations {
+          margin-top: 60px;
+          text-align: center;
+        }
+        
+        .vx-locations h2 {
+          font-size: 28px;
+          margin-bottom: 30px;
+        }
+
+        .vx-loc-grid {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 20px;
+          max-width: 800px;
+          margin: 0 auto;
+        }
+
+        .vx-loc-card {
           background: white;
+          border: 1px solid #e2e8f0;
+          padding: 24px;
+          border-radius: 12px;
+          display: flex;
+          align-items: center;
+          gap: 16px;
+          text-align: left;
+          transition: box-shadow 0.2s;
         }
 
-        /* RESPONSIVE */
-
-        @media (max-width: 1100px) {
-          .va-container {
-            width: calc(100% - 44px);
-          }
-
-          .va-hero-grid {
-            grid-template-columns: .9fr 1.1fr;
-            gap: 20px;
-          }
-
-          .va-hero h1 {
-            font-size: clamp(40px, 5vw, 55px);
-          }
-
-          .va-about-grid {
-            grid-template-columns: .9fr 1fr;
-            gap: 25px;
-          }
-
-          .va-about-copy {
-            grid-column: 1 / -1;
-          }
-
-          .va-right {
-            align-self: center;
-          }
-
-          .va-service-grid {
-            grid-template-columns: repeat(3, minmax(0,1fr));
-          }
+        .vx-loc-card:hover {
+          box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
-        @media (max-width: 760px) {
-          .va-container {
-            width: calc(100% - 34px);
-          }
-
-          .va-hero {
-            padding-top: 35px;
-          }
-
-          .va-hero-grid {
-            grid-template-columns: 1fr;
-            gap: 27px;
-          }
-
-          .va-hero h1 {
-            font-size: clamp(42px, 9vw, 62px);
-          }
-
-          .va-visual {
-            height: clamp(250px, 52vw, 350px);
-          }
-
-          .va-stats {
-            grid-template-columns: repeat(2, minmax(0,1fr));
-            gap: 20px 0;
-          }
-
-          .va-stat {
-            justify-content: flex-start;
-            padding: 5px 12px;
-          }
-
-          .va-stat:nth-child(2) {
-            border-right: 0;
-          }
-
-          .va-stat:nth-child(3) {
-            border-right: 1px solid #dce9eb;
-          }
-
-          .va-about-grid {
-            grid-template-columns: 1fr 1fr;
-            padding: 45px 0;
-          }
-
-          .va-about-copy {
-            grid-column: 1 / -1;
-          }
-
-          .va-team img {
-            height: 260px;
-          }
-
-          .va-vision-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .va-service-grid {
-            grid-template-columns: repeat(2, minmax(0,1fr));
-          }
-
-          .va-cta {
-            align-items: flex-start;
-            flex-direction: column;
-            padding: 30px;
-          }
+        .vx-loc-card span {
+          font-size: 32px;
         }
 
-        @media (max-width: 480px) {
-          .va-container {
-            width: calc(100% - 28px);
-          }
+        .vx-loc-card h4 {
+          font-size: 18px;
+          margin-bottom: 4px;
+        }
 
-          .va-hero {
-            padding-top: 28px;
-          }
+        .vx-loc-card p {
+          font-size: 13px;
+          color: var(--text-muted);
+          margin: 0;
+        }
 
-          .va-hero h1 {
-            font-size: 42px;
-            letter-spacing: -1.8px;
-          }
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+          .vx-core-grid { grid-template-columns: repeat(2, 1fr); margin-top: 30px; padding: 0; }
+          .vx-mission-wrapper { grid-template-columns: 1fr; }
+          .vx-stats-banner { grid-template-columns: repeat(3, 1fr); gap: 24px 16px; }
+          .vx-stat-item:nth-child(3) { border-right: none; }
+          .vx-cta-banner { flex-direction: column; text-align: center; gap: 24px; padding: 40px 24px; }
+        }
 
-          .va-hero-copy > p {
-            font-size: 13px;
-          }
-
-          .va-btn {
-            padding: 12px 15px;
-            font-size: 12px;
-          }
-
-          .va-visual {
-            height: 245px;
-          }
-
-          .va-image-note {
-            right: 0;
-            bottom: 7px;
-            padding: 10px;
-            max-width: 210px;
-          }
-
-          .va-note-icon {
-            width: 36px;
-            height: 36px;
-            font-size: 22px;
-          }
-
-          .va-image-note strong {
-            font-size: 10px;
-          }
-
-          .va-floating {
-            left: 0;
-            top: 8px;
-            font-size: 10px;
-          }
-
-          .va-stats {
-            padding: 17px 7px;
-            gap: 17px 0;
-            border-radius: 17px;
-          }
-
-          .va-stat {
-            gap: 8px;
-            padding: 4px 7px;
-          }
-
-          .va-stat-icon {
-            font-size: 27px;
-          }
-
-          .va-stat strong {
-            font-size: 20px;
-          }
-
-          .va-stat span {
-            font-size: 10px;
-          }
-
-          .va-about-grid {
-            grid-template-columns: 1fr;
-            gap: 28px;
-          }
-
-          .va-about-copy {
-            grid-column: auto;
-          }
-
-          .va-heading {
-            font-size: 31px;
-          }
-
-          .va-team {
-            margin: 0 5px;
-          }
-
-          .va-team img {
-            height: 250px;
-          }
-
-          .va-team-badge {
-            width: 83px;
-            height: 83px;
-            font-size: 9px;
-          }
-
-          .va-vision-grid {
-            grid-template-columns: repeat(2, minmax(0,1fr));
-          }
-
-          .va-vision-card {
-            padding: 12px 9px;
-          }
-
-          .va-vision-icon {
-            width: 36px;
-            height: 36px;
-          }
-
-          .va-vision-card p {
-            font-size: 10px;
-          }
-
-          .va-values {
-            gap: 4px;
-          }
-
-          .va-value b {
-            font-size: 21px;
-          }
-
-          .va-value span {
-            font-size: 9px;
-          }
-
-          .va-services {
-            padding: 21px 12px;
-            border-radius: 20px;
-            margin-bottom: 40px;
-          }
-
-          .va-service-grid {
-            grid-template-columns: 1fr;
-          }
-
-          .va-service {
-            padding: 18px;
-          }
-
-          .va-service p {
-            min-height: auto;
-          }
-
-          .va-cta {
-            padding: 26px 21px;
-            margin-bottom: 30px;
-          }
-
-          .va-cta h2 {
-            font-size: 26px;
-          }
+        @media (max-width: 768px) {
+          .vx-hero-grid { grid-template-columns: 1fr; text-align: center; }
+          .vx-hero-content p { margin: 0 auto 32px; }
+          .vx-hero-visual { margin-top: 40px; }
+          .vx-floating-badge { display: none; }
+          .vx-mission-grid { grid-template-columns: 1fr; }
+          .vx-stats-banner { grid-template-columns: repeat(2, 1fr); }
+          .vx-stat-item:nth-child(even) { border-right: none; }
+          .vx-loc-grid { grid-template-columns: 1fr; }
         }
       `}</style>
 
-      {/* HERO SECTION */}
-      <section className="va-hero" id="about-home">
-        <div className="va-container va-hero-grid">
-          <div className="va-hero-copy">
-            <div className="va-eyebrow">About Us</div>
-
-            <h1>
-              Turning
-              <br />
-              Challenges
-              <br />
-              <span className="va-gradient">into Solutions.</span>
-            </h1>
-
+      {/* 1. HERO SECTION */}
+      <section className="vx-hero-wrapper">
+        <div className="vx-container vx-hero-grid">
+          <div className="vx-hero-content">
+            <h1>About Us</h1>
+            <div className="vx-hero-subtitle">Turning Challenges into Solutions.</div>
             <p>
-              Vighnex Technologies is a full-service IT solutions company
-              committed to delivering innovative, reliable, and result-driven
-              digital solutions for businesses, startups and individuals.
+              Vighnex Technologies is a full-service IT solutions company committed to delivering innovative, reliable, and result-driven digital solutions for businesses, startups, and individuals worldwide.
             </p>
-
-            <div className="va-actions">
-              <a href="#va-services" className="va-btn va-btn-primary">
-                Our Services <span className="va-arrow">→</span>
-              </a>
-
-              <a href="#va-contact" className="va-btn va-btn-outline">
-                Contact Us <span className="va-arrow">→</span>
-              </a>
-            </div>
+            {/* Replaced <a> with React Router <Link> */}
+            <Link to="/services" className="vx-btn-cyan">
+              Our Services &rarr;
+            </Link>
           </div>
 
-          <div className="va-visual">
-            <div className="va-floating">✧ Ideas · Innovation · Growth</div>
-
+          <div className="vx-hero-visual">
+            <div className="vx-hero-blob"></div>
             <img
-              className="va-hero-image"
-              src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?auto=format&fit=crop&w=1400&q=85"
-              alt="Modern technology company workspace"
+              className="vx-hero-image"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=600&q=80"
+              alt="Technology team collaborating"
             />
+            {floatingBadges.map((badge, idx) => (
+              <div
+                key={idx}
+                className="vx-floating-badge"
+                style={{
+                  top: badge.top,
+                  bottom: badge.bottom,
+                  left: badge.left,
+                  right: badge.right,
+                }}
+              >
+                <span>{badge.icon}</span>
+                {badge.label}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
-            <div className="va-image-note">
-              <div className="va-note-icon">♧</div>
-              <strong>
-                Creating Digital Experiences
-                <br />
-                That Make a Difference.
-              </strong>
+      <div className="vx-container">
+        {/* 2. CORE INFO STRIP */}
+        <div className="vx-core-grid">
+          {coreInfo.map((info, idx) => (
+            <div className="vx-core-card" key={idx}>
+              <div
+                className="vx-core-icon"
+                style={{
+                  background: info.color === "blue" ? "#e0f2fe" : 
+                              info.color === "green" ? "#dcfce7" : 
+                              info.color === "orange" ? "#ffedd5" : "#fce7f3"
+                }}
+              >
+                {info.icon}
+              </div>
+              <h3>{info.title}</h3>
+              <p>{info.desc}</p>
             </div>
-          </div>
-        </div>
-
-        {/* COMPANY STATISTICS */}
-        <div className="va-container">
-          <div className="va-stats">
-            {stats.map((stat) => (
-              <div className="va-stat" key={stat.label}>
-                <div className={`va-stat-icon ${stat.color}`}>
-                  {stat.icon}
-                </div>
-                <div>
-                  <strong>{stat.number}</strong>
-                  <span>{stat.label}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* WHO WE ARE */}
-      <section className="va-container va-about-grid" id="va-about">
-        <div className="va-about-copy">
-          <div className="va-eyebrow">Who We Are</div>
-
-          <h2 className="va-heading">
-            Who <span className="va-gradient">We Are</span>
-          </h2>
-
-          <div className="va-underline" />
-
-          <p>
-            Vighnex Technologies is a team of passionate creators, developers
-            and strategists who believe in the power of technology to solve
-            real-world problems. We work closely with our clients to
-            understand their goals and deliver customized solutions that
-            drive growth and success.
-          </p>
-
-          <a href="#va-values" className="va-btn va-btn-primary">
-            Learn More About Us <span className="va-arrow">→</span>
-          </a>
-        </div>
-
-        <div className="va-team">
-          <img
-            src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?auto=format&fit=crop&w=1100&q=85"
-            alt="Technology team collaborating on a project"
-            loading="lazy"
-          />
-
-          <div className="va-team-badge">
-            People
-            <br />
-            Ideas
-            <br />
-            Technology
-            <br />
-            Success
-          </div>
-        </div>
-
-        <div className="va-right">
-          <h3>
-            Our <span className="va-gradient">Vision &amp; Mission</span>
-          </h3>
-
-          <div className="va-underline" />
-
-          <div className="va-vision-grid">
-            <article className="va-vision-card">
-              <div className="va-vision-icon">◎</div>
-              <h4>Our Vision</h4>
-              <p>
-                To be a trusted technology partner, empowering businesses
-                with innovative and reliable digital solutions.
-              </p>
-            </article>
-
-            <article className="va-vision-card">
-              <div className="va-vision-icon mission">◉</div>
-              <h4>Our Mission</h4>
-              <p>
-                To deliver high-quality, result-driven IT services that
-                create value and help our clients achieve their goals.
-              </p>
-            </article>
-          </div>
-
-          <h4 className="va-values-heading" id="va-values">
-            Our Core Values
-          </h4>
-
-          <div className="va-values">
-            {values.map((value) => (
-              <div className="va-value" key={value.label}>
-                <b>{value.icon}</b>
-                <span>{value.label}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* OUR SERVICES */}
-      <section className="va-container va-services" id="va-services">
-        <div className="va-services-head">
-          <h2 className="va-heading">
-            What <span className="va-gradient">We Do</span>
-          </h2>
-
-          <div className="va-underline" />
-
-          <p>
-            Complete digital solutions designed to move your business forward.
-          </p>
-        </div>
-
-        <div className="va-service-grid">
-          {services.map((service) => (
-            <article className="va-service" key={service.number}>
-              <div className="va-service-top">
-                <div className={`va-service-icon ${service.color}`}>
-                  {service.icon}
-                </div>
-
-                <span className="va-number">{service.number}</span>
-              </div>
-
-              <h3>{service.title}</h3>
-              <p>{service.description}</p>
-
-              <div className="va-tags">
-                {service.tags.map((tag) => (
-                  <span key={tag}>{tag}</span>
-                ))}
-              </div>
-
-              <a href="#va-contact">
-                Enquire Now <span className="va-arrow">→</span>
-              </a>
-            </article>
           ))}
         </div>
-      </section>
 
-      {/* CONTACT CALL TO ACTION - NO FOOTER */}
-      <section className="va-container" id="va-contact">
-        <div className="va-cta">
-          <div>
-            <div className="va-eyebrow">Let's Build Something Great</div>
-
-            <h2>Your Vision. Our Technology. One Great Result.</h2>
-
+        {/* 3. MISSION, VISION & VALUES */}
+        <section className="vx-mission-wrapper" style={{ marginTop: "80px" }}>
+          <div className="vx-mission-intro">
+            <h2>
+              Our <span>Mission</span>, Vision & Values
+            </h2>
             <p>
-              Have a project in mind? Let's discuss your ideas and turn them
-              into a digital experience that makes a difference.
+              We are committed to building long-term partnerships by providing transparent, high-quality, and scalable technology solutions tailored to your unique requirements.
             </p>
           </div>
 
-          <a
-            className="va-btn"
-            href="mailto:info@vighnextechnologies.com?subject=Project%20Enquiry"
-          >
-            Start Your Project <span className="va-arrow">→</span>
-          </a>
-        </div>
-      </section>
+          <div className="vx-mission-grid">
+            {missionVisionValues.map((item, idx) => (
+              <div className="vx-mvv-card" key={idx}>
+                <div className="icon">{item.icon}</div>
+                <h4>{item.title}</h4>
+                <p>{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        {/* 4. STATS BANNER */}
+        <section className="vx-stats-banner">
+          {stats.map((stat, idx) => (
+            <div className="vx-stat-item" key={idx}>
+              <div className={`icon ${stat.icon === "⭐" ? "cyan" : ""}`}>
+                {stat.icon}
+              </div>
+              <div className="vx-stat-info">
+                <strong>{stat.number}</strong>
+                <span>{stat.label}</span>
+              </div>
+            </div>
+          ))}
+        </section>
+
+        {/* 5. FULL WIDTH CTA BANNER */}
+        <section className="vx-cta-banner">
+          <div className="vx-cta-content">
+            <h3>Ready to scale your business?</h3>
+            <p>
+              Partner with Vighnex Technologies to transform your ideas into powerful digital experiences. Let's build the future together.
+            </p>
+          </div>
+          {/* Replaced <a> with React Router <Link> */}
+          <Link to="/contact" className="vx-btn-blue">
+            Start Your Project &rarr;
+          </Link>
+        </section>
+
+        {/* 6. OUR LOCATIONS */}
+        <section className="vx-locations">
+          <h2>Our Locations</h2>
+          <div className="vx-loc-grid">
+            {locations.map((loc, idx) => (
+              <div className="vx-loc-card" key={idx}>
+                <span>{loc.icon}</span>
+                <div>
+                  <h4>{loc.city}, {loc.country}</h4>
+                  <p>{loc.address}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+      </div>
     </main>
   );
 }

@@ -1,65 +1,90 @@
 import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assests/vighnexlogo.png";
 
 const Footer = ({ scrollTo }) => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
 
-  const handleScroll = (id) => {
+  const quickLinks = [
+    { label: "Home", path: "/" },
+    { label: "About Us", path: "/about" },
+    { label: "Our Services", path: "/services" },
+    { label: "Contact Us", path: "/contact" },
+  ];
+
+  const services = [
+    { label: "Web Development", path: "/services/web-development" },
+    { label: "Mobile App Development", path: "/services/mobile-development" },
+    { label: "Digital Marketing", path: "/services/digital-marketing" },
+    { label: "Logo & Branding", path: "/services/logo-branding" },
+    { label: "UI/UX Design", path: "/services/ui-ux-design" },
+    { label: "Cloud Deployment", path: "/services/cloud-deployment" },
+  ];
+
+  const socialLinks = [
+    {
+      label: "LinkedIn",
+      icon: "in",
+      url: "https://www.linkedin.com/",
+    },
+    {
+      label: "Instagram",
+      icon: "◎",
+      url: "https://www.instagram.com/",
+    },
+    {
+      label: "Facebook",
+      icon: "f",
+      url: "https://www.facebook.com/",
+    },
+    {
+      label: "YouTube",
+      icon: "▶",
+      url: "https://www.youtube.com/",
+    },
+  ];
+
+  const handleNavigation = (path) => {
     if (typeof scrollTo === "function") {
-      scrollTo(id);
-      return;
+      const sectionIds = {
+        "/": "home",
+        "/about": "about",
+        "/services": "services",
+        "/contact": "contact",
+      };
+
+      const sectionId = sectionIds[path];
+
+      // Use section scrolling only when the matching section exists
+      // on the current page. Otherwise, navigate to the requested route.
+      if (sectionId && document.getElementById(sectionId)) {
+        scrollTo(sectionId);
+        return;
+      }
     }
 
-    const element = document.getElementById(id);
-
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    } else {
-      window.scrollTo({ top: 0, behavior: "smooth" });
-    }
+    navigate(path);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSubscribe = (event) => {
     event.preventDefault();
 
+    const trimmedEmail = email.trim();
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailPattern.test(email.trim())) {
+    if (!emailPattern.test(trimmedEmail)) {
       setMessage("Please enter a valid email address.");
       return;
     }
 
-    setMessage("Email validated successfully.");
+    // This validates the email locally. Connect a backend or
+    // newsletter service to store subscriptions.
+    setMessage("Email validated successfully. Newsletter registration is not connected yet.");
     setEmail("");
   };
-
-  const quickLinks = [
-    { label: "Home", id: "home" },
-    { label: "About Us", id: "about" },
-    { label: "Our Services", id: "services" },
-    { label: "Our Projects", id: "projects" },
-    { label: "Contact Us", id: "contact" },
-  ];
-
-  const services = [
-    "Web Development",
-    "Mobile App Development",
-    "Digital Marketing",
-    "Logo & Branding",
-    "UI/UX Design",
-    "Cloud Deployment",
-  ];
-
-  const socialLinks = [
-    { label: "LinkedIn", icon: "in", url: "https://www.linkedin.com/" },
-    { label: "Instagram", icon: "◎", url: "https://www.instagram.com/" },
-    { label: "Facebook", icon: "f", url: "https://www.facebook.com/" },
-    { label: "YouTube", icon: "▶", url: "https://www.youtube.com/" },
-  ];
 
   return (
     <>
@@ -71,6 +96,7 @@ const Footer = ({ scrollTo }) => {
           background: #071426;
           color: #e7edf7;
           font-family: Arial, Helvetica, sans-serif;
+          width: 100%;
         }
 
         .vighnex-footer *,
@@ -164,18 +190,6 @@ const Footer = ({ scrollTo }) => {
           object-fit: contain;
           object-position: left center;
           margin-bottom: 18px;
-        }
-
-        .vighnex-footer .footer-brand-name {
-          margin: 0 0 15px;
-          color: #fff;
-          font-size: 22px;
-          font-weight: 800;
-          line-height: 1.5;
-        }
-
-        .vighnex-footer .footer-brand-name span {
-          color: #f5b142;
         }
 
         .vighnex-footer .footer-description {
@@ -313,6 +327,11 @@ const Footer = ({ scrollTo }) => {
 
         .vighnex-footer .newsletter-input::placeholder {
           color: #8796aa;
+        }
+
+        .vighnex-footer .newsletter-input:focus-visible {
+          outline: 1px solid #f5b142;
+          outline-offset: -1px;
         }
 
         .vighnex-footer .newsletter-button {
@@ -521,11 +540,13 @@ const Footer = ({ scrollTo }) => {
 
           <div className="footer-main">
             <div className="footer-brand">
-              <img
-                className="footer-logo"
-                src={logo}
-                alt="Vighnex Technologies Logo"
-              />
+              <Link to="/" aria-label="Vighnex Technologies home">
+                <img
+                  className="footer-logo"
+                  src={logo}
+                  alt="Vighnex Technologies Logo"
+                />
+              </Link>
 
               <p className="footer-description">
                 Turning Challenges into Solutions. We transform ideas into
@@ -538,10 +559,10 @@ const Footer = ({ scrollTo }) => {
               <h3 className="footer-heading">Quick Links</h3>
               <ul className="footer-links">
                 {quickLinks.map((link) => (
-                  <li key={link.id}>
+                  <li key={link.path}>
                     <button
                       type="button"
-                      onClick={() => handleScroll(link.id)}
+                      onClick={() => handleNavigation(link.path)}
                     >
                       {link.label}
                     </button>
@@ -554,12 +575,12 @@ const Footer = ({ scrollTo }) => {
               <h3 className="footer-heading">Our Services</h3>
               <ul className="footer-links">
                 {services.map((service) => (
-                  <li key={service}>
+                  <li key={service.path}>
                     <button
                       type="button"
-                      onClick={() => handleScroll("services")}
+                      onClick={() => handleNavigation(service.path)}
                     >
-                      {service}
+                      {service.label}
                     </button>
                   </li>
                 ))}
@@ -568,38 +589,29 @@ const Footer = ({ scrollTo }) => {
 
             <div>
               <h3 className="footer-heading">Get In Touch</h3>
+
               <ul className="footer-contact-list">
                 <li className="footer-contact-item">
                   <span className="contact-icon" aria-hidden="true">⌖</span>
                   <span>
-                    Tadipatri, Anantapur District,
+                  Addis Ababa,
                     <br />
-                    Andhra Pradesh, India – 515411
+                    Ethopia
                   </span>
                 </li>
 
                 <li className="footer-contact-item">
                   <span className="contact-icon" aria-hidden="true">☎</span>
-                  <a href="tel:+916309123456">+91 6309 123 456</a>
+                  <a href="tel:+916309123456">+91 9390642779</a>
                 </li>
 
                 <li className="footer-contact-item">
                   <span className="contact-icon" aria-hidden="true">✉</span>
                   <a href="mailto:info@vighnextechnologies.com">
-                    info@vighnextechnologies.com
+                    vighnextechnologies@gmail.com
                   </a>
                 </li>
 
-                <li className="footer-contact-item">
-                  <span className="contact-icon" aria-hidden="true">◎</span>
-                  <a
-                    href="https://www.vighnextechnologies.com"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    www.vighnextechnologies.com
-                  </a>
-                </li>
               </ul>
 
               <h4 className="social-heading">Follow Us</h4>
@@ -610,7 +622,7 @@ const Footer = ({ scrollTo }) => {
                     className="social-link"
                     href={social.url}
                     target="_blank"
-                    rel="noreferrer"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     title={social.label}
                   >
@@ -624,10 +636,7 @@ const Footer = ({ scrollTo }) => {
                 Enter your email to receive updates from our team.
               </p>
 
-              <form
-                className="newsletter-form"
-                onSubmit={handleSubscribe}
-              >
+              <form className="newsletter-form" onSubmit={handleSubscribe}>
                 <input
                   className="newsletter-input"
                   type="email"
@@ -664,9 +673,9 @@ const Footer = ({ scrollTo }) => {
             </p>
 
             <div className="legal-links">
-              <a href="/privacy-policy">Privacy Policy</a>
-              <a href="/terms-and-conditions">Terms & Conditions</a>
-              <a href="/contact">Support</a>
+              <Link to="/privacy-policy">Privacy Policy</Link>
+              <Link to="/terms-and-conditions">Terms & Conditions</Link>
+              <Link to="/contact">Support</Link>
             </div>
           </div>
         </div>

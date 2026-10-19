@@ -33,12 +33,34 @@ const Header = () => {
   ];
 
   const serviceItems = [
-    { name: "Web Development", path: "/services" },
-    { name: "Mobile App Development", path: "/services" },
-    { name: "Digital Marketing", path: "/services" },
-    { name: "Logo & Branding", path: "/services" },
-    { name: "UI/UX Design", path: "/services" },
-    { name: "Cloud Deployment", path: "/services" },
+    {
+      name: "All Services",
+      path: "/services",
+    },
+    {
+      name: "Web Development",
+      path: "/services/web-development",
+    },
+    {
+      name: "Mobile App Development",
+      path: "/services/mobile-development",
+    },
+    {
+      name: "Digital Marketing",
+      path: "/services/digital-marketing",
+    },
+    {
+      name: "Logo & Branding",
+      path: "/services/logo-branding",
+    },
+    {
+      name: "UI/UX Design",
+      path: "/services/ui-ux-design",
+    },
+    {
+      name: "Cloud Deployment",
+      path: "/services/cloud-deployment",
+    },
   ];
 
   const isActive = (path) =>
@@ -64,6 +86,7 @@ const Header = () => {
           --vh-bg: #03162c;
           --vh-cyan: #00c9f2;
           --vh-gold: #f4bd42;
+
           position: fixed;
           top: 0;
           left: 0;
@@ -245,11 +268,15 @@ const Header = () => {
           align-items: center;
           gap: 6px;
           padding: 12px 0;
+          border: 0;
           color: #edf3ff;
+          background: transparent;
+          font-family: inherit;
           font-size: 14px;
           font-weight: 550;
           white-space: nowrap;
           text-decoration: none;
+          cursor: pointer;
           transition: color .2s ease;
         }
 
@@ -302,7 +329,8 @@ const Header = () => {
         }
 
         .vh-services-wrap:hover .vh-dropdown-arrow,
-        .vh-services-wrap:focus-within .vh-dropdown-arrow {
+        .vh-services-wrap:focus-within .vh-dropdown-arrow,
+        .vh-services-wrap.vh-dropdown-open .vh-dropdown-arrow {
           transform: rotate(180deg);
         }
 
@@ -310,7 +338,9 @@ const Header = () => {
           position: absolute;
           top: calc(100% + 8px);
           left: -15px;
-          width: 235px;
+          width: 250px;
+          max-height: 70vh;
+          overflow-y: auto;
           padding: 9px;
           border: 1px solid rgba(0, 180, 255, .28);
           border-radius: 13px;
@@ -340,7 +370,8 @@ const Header = () => {
           transition: color .2s, background .2s;
         }
 
-        .vh-dropdown-link:hover {
+        .vh-dropdown-link:hover,
+        .vh-dropdown-link.vh-active {
           color: #45e0ff;
           background: rgba(0, 161, 255, .12);
         }
@@ -391,6 +422,49 @@ const Header = () => {
 
         .vh-mobile-panel {
           display: none;
+        }
+
+        .vh-mobile-link {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          gap: 10px;
+          width: 100%;
+          padding: 13px 10px;
+          border: 0;
+          border-bottom: 1px solid rgba(255, 255, 255, .08);
+          color: #e8f1ff;
+          background: transparent;
+          font-family: inherit;
+          font-size: 15px;
+          text-align: left;
+          text-decoration: none;
+          cursor: pointer;
+        }
+
+        .vh-mobile-link.vh-active {
+          color: #32d9ff;
+        }
+
+        .vh-mobile-submenu {
+          display: grid;
+          gap: 2px;
+          padding: 4px 0 8px 15px;
+        }
+
+        .vh-mobile-submenu a {
+          display: block;
+          padding: 10px;
+          border-radius: 7px;
+          color: #bdcde3;
+          font-size: 13px;
+          text-decoration: none;
+        }
+
+        .vh-mobile-submenu a:hover,
+        .vh-mobile-submenu a.vh-active {
+          color: #42ddff;
+          background: rgba(0, 160, 255, .1);
         }
 
         @media (min-width: 1600px) {
@@ -500,40 +574,6 @@ const Header = () => {
             box-shadow: 0 18px 28px rgba(0, 0, 0, .35);
           }
 
-          .vh-mobile-link {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 13px 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, .08);
-            color: #e8f1ff;
-            font-size: 15px;
-            text-decoration: none;
-          }
-
-          .vh-mobile-link.vh-active {
-            color: #32d9ff;
-          }
-
-          .vh-mobile-submenu {
-            display: grid;
-            gap: 2px;
-            padding: 4px 0 8px 15px;
-          }
-
-          .vh-mobile-submenu a {
-            padding: 10px;
-            border-radius: 7px;
-            color: #bdcde3;
-            font-size: 13px;
-            text-decoration: none;
-          }
-
-          .vh-mobile-submenu a:hover {
-            color: #42ddff;
-            background: rgba(0, 160, 255, .1);
-          }
-
           .vh-mobile-quote {
             margin-top: 13px;
           }
@@ -559,8 +599,8 @@ const Header = () => {
             display: none;
           }
 
-          .vh-top-divider {
-            height: 18px;
+          .vh-top-divider.vh-location {
+            display: none;
           }
 
           .vh-top-right {
@@ -610,12 +650,12 @@ const Header = () => {
           <div className="vh-top-contact">
             <a
               className="vh-top-item vh-location"
-              href="https://maps.google.com/?q=Addis Ababa, Ethopia"
+              href="https://maps.google.com/?q=Addis+Ababa+Ethiopia"
               target="_blank"
-              rel="noreferrer"
+              rel="noopener noreferrer"
             >
               <span className="vh-top-icon">⌖</span>
-              <span>Addis Ababa, Ethopia</span>
+              <span>Addis Ababa, Ethiopia</span>
             </a>
 
             <span className="vh-top-divider vh-location" />
@@ -629,10 +669,10 @@ const Header = () => {
 
             <a
               className="vh-top-item vh-email"
-              href="mailto:info@vighnextech.com"
+              href="mailto:vighnextechnologies@gmail.com"
             >
               <span className="vh-top-icon">✉</span>
-              <span>info@vighnextech.com</span>
+              <span>vighnextechnologies@gmail.com</span>
             </a>
           </div>
 
@@ -661,7 +701,7 @@ const Header = () => {
                 className="vh-social"
                 href="https://www.linkedin.com/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="LinkedIn"
               >
                 in
@@ -671,7 +711,7 @@ const Header = () => {
                 className="vh-social vh-instagram"
                 href="https://www.instagram.com/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
               >
                 ◎
@@ -681,7 +721,7 @@ const Header = () => {
                 className="vh-social vh-youtube"
                 href="https://www.youtube.com/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="YouTube"
               >
                 ▶
@@ -691,7 +731,7 @@ const Header = () => {
                 className="vh-social vh-facebook"
                 href="https://www.facebook.com/"
                 target="_blank"
-                rel="noreferrer"
+                rel="noopener noreferrer"
                 aria-label="Facebook"
               >
                 f
@@ -739,24 +779,32 @@ const Header = () => {
               onMouseEnter={() => setServicesOpen(true)}
               onMouseLeave={() => setServicesOpen(false)}
             >
-              <Link
-                to="/services"
+              <button
+                type="button"
                 className={`vh-nav-link ${
                   isActive("/services") ? "vh-active" : ""
                 }`}
                 aria-haspopup="true"
                 aria-expanded={servicesOpen}
-                onClick={() => setServicesOpen(!servicesOpen)}
+                onClick={() => setServicesOpen((open) => !open)}
+                onKeyDown={(event) => {
+                  if (event.key === "Escape") {
+                    setServicesOpen(false);
+                  }
+                }}
               >
                 Services <span className="vh-dropdown-arrow" />
-              </Link>
+              </button>
 
               <div className="vh-dropdown">
-                {serviceItems.map((service, index) => (
+                {serviceItems.map((service) => (
                   <Link
-                    key={`${service.name}-${index}`}
+                    key={service.path}
                     to={service.path}
-                    className="vh-dropdown-link"
+                    className={`vh-dropdown-link ${
+                      isActive(service.path) ? "vh-active" : ""
+                    }`}
+                    onClick={closeMenus}
                   >
                     {service.name}
                   </Link>
@@ -777,15 +825,25 @@ const Header = () => {
             ))}
           </nav>
 
-          <Link to="/contact" className="vh-quote-btn">
-            <span className="vh-quote-icon" aria-hidden="true">➤</span>
+          <Link
+            to="/contact"
+            className="vh-quote-btn"
+            onClick={closeMenus}
+          >
+            <span className="vh-quote-icon" aria-hidden="true">
+              ➤
+            </span>
             Get a Quote
           </Link>
 
+          {/* MOBILE MENU BUTTON */}
           <button
             type="button"
             className="vh-mobile-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => {
+              setMobileMenuOpen((open) => !open);
+              setServicesOpen(false);
+            }}
             aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={mobileMenuOpen}
           >
@@ -814,17 +872,7 @@ const Header = () => {
               className={`vh-mobile-link ${
                 isActive("/services") ? "vh-active" : ""
               }`}
-              style={{
-                width: "100%",
-                background: "transparent",
-                borderTop: 0,
-                borderRight: 0,
-                borderLeft: 0,
-                textAlign: "left",
-                cursor: "pointer",
-                fontFamily: "inherit",
-              }}
-              onClick={() => setServicesOpen(!servicesOpen)}
+              onClick={() => setServicesOpen((open) => !open)}
               aria-expanded={servicesOpen}
             >
               Services
@@ -833,10 +881,13 @@ const Header = () => {
 
             {servicesOpen && (
               <div className="vh-mobile-submenu">
-                {serviceItems.map((service, index) => (
+                {serviceItems.map((service) => (
                   <Link
-                    key={`${service.name}-${index}`}
+                    key={service.path}
                     to={service.path}
+                    className={
+                      isActive(service.path) ? "vh-active" : ""
+                    }
                     onClick={closeMenus}
                   >
                     {service.name}
@@ -863,20 +914,16 @@ const Header = () => {
               className="vh-quote-btn vh-mobile-quote"
               onClick={closeMenus}
             >
-              <span className="vh-quote-icon" aria-hidden="true">➤</span>
+              <span className="vh-quote-icon" aria-hidden="true">
+                ➤
+              </span>
               Get a Quote
             </Link>
           </nav>
         )}
       </header>
 
-      {/* Keeps the page content below the fixed header. */}
-      <div
-        aria-hidden="true"
-        style={{
-          height: "143px",
-        }}
-      />
+      {/* Fixed-header spacing is handled by App.js mainContent marginTop. */}
     </>
   );
 };

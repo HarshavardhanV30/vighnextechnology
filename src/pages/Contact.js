@@ -42,23 +42,34 @@ const Contact = () => {
       icon: "☎",
       color: "#087cff",
       title: "Call Us",
-      value: "+91 XXXXX XXXXX",
+      value: "+91 9390642779",
       note: "Mon - Sat, 9:00 AM - 6:00 PM",
     },
     {
       icon: "✉",
       color: "#ff4268",
       title: "Email Us",
-      value: "your-email@example.com",
+      value: "vighnextechnologies@gmail.com",
       note: "We will respond as soon as possible",
     },
     {
-      icon: "⌖",
-      color: "#08bd76",
-      title: "Our Office",
-      value: "Your Office Address",
-      note: "We look forward to connecting with you",
+  icon: "⌖",
+  color: "#08bd76",
+  title: "Our Office",
+  value: "Addis Ababa, Ethiopia | Bengaluru, India",
+  note: "Addis Ababa Head office is located in Ethiopia. Our new office in Bengaluru, India, is opening soon.",
+  locations: [
+    {
+      name: "Addis Ababa, Ethiopia",
+      url: "https://maps.google.com/?q=Addis+Ababa+Ethiopia",
     },
+    {
+      name: "Bengaluru, India",
+      url: "https://maps.google.com/?q=Bengaluru+India",
+      status: "New Office Opening Soon",
+    },
+  ],
+}
   ];
 
   const advantages = [
